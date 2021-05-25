@@ -26,7 +26,7 @@ module.exports = (app, db) => {
 
     /* Upload File Api */
     var upload = multer({ storage: storage });
-    app.post('/Upload/file_upload',  upload.single('file'), function (req, res) { 
+    app.post('/api/Upload/file_upload',  upload.single('file'), function (req, res) { 
         try {
             if(req.file && req.file.originalname && req.file.path){
                 var fileId = ObjectID();

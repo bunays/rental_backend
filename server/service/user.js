@@ -16,7 +16,7 @@ module.exports = (app, db) => {
     @Function: Save user details Data
     */
 
-    app.post('/rental/auth/signup', (req,res) =>  { 
+    app.post('/api/auth/signup', (req,res) =>  { 
         try{
              var obj = req.body;
              var strActionType ="SAVE";
@@ -44,7 +44,7 @@ module.exports = (app, db) => {
     @Function: Login user details Data
     */
 
-    app.post('/rental/auth/login', (req,res) =>  { 
+    app.post('/api/auth/login', (req,res) =>  { 
         try{
             var obj = req.body;
             if(common.isEmptyObject(obj))  

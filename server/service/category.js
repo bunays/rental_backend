@@ -15,10 +15,8 @@ module.exports = (app, db) => {
 
     /*
     TODO:This api use Save Category details in Data Base
-    @Function: Save user details Data
+    @Function: Save Category details Data
     */
-
-
     app.post('/api/category/Savenewcategory', (req,res) =>{   
         try{
             var obj = req.body;
@@ -53,4 +51,76 @@ module.exports = (app, db) => {
         }
 
     });
+
+    /*
+    TODO:This api use Update Category details in Data Base
+    @Function: Update Category details Data
+    */
+    app.post('/api/category/UpdateCategoryDetails', (req,res) => {
+
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                CATEGORYMODEL.funCategoryValidateDetails(strActionType,req,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        CATEGORYMODEL.funUpdateCategoryDetails(obj,db).then(( result )=>{
+                            if(result && result.success === true) {
+                                res.status(200).json(result)
+                            }
+                            else {
+                                res.status(200).json(result)
+                            }
+                        });
+                    } else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+
+     /*
+    TODO:This api use Delete Category details in Data Base
+    @Function: Delete Category details Data
+    */
+    app.post('/api/category/DeleteCategoryDetails', (req,res) => {
+
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                CATEGORYMODEL.fundeleteCategoryValidateDetails(strActionType,req,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        console.log("fundeleteCategoryValidateDetails",result)
+                        CATEGORYMODEL.funDeleteCategory(obj,db).then(( result )=>{
+                            if(result && result.success === true) {
+                                res.status(200).json(result)
+                            }
+                            else {
+                                res.status(200).json(result)
+                            }
+                        });
+                    } else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+
+
+
 }

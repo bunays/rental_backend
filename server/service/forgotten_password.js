@@ -16,7 +16,7 @@ module.exports = (app, db) => {
     @Function: to update password  details Data
     */
 
-    app.post('/rental/auth/forgotUserPassword', (req,res) =>  { 
+    app.post('/api/auth/forgotUserPassword', (req,res) =>  { 
 
         try{
             var obj = req.body;
@@ -51,7 +51,7 @@ module.exports = (app, db) => {
     @Function: to reset password  details Data
     */
 
-    app.post('/rental/auth/reset_password', (req,res) =>  { 
+    app.post('/api/auth/reset_password', (req,res) =>  { 
         try{
             var obj = req.body;
             var strActionType ="SAVE";
@@ -81,6 +81,4 @@ module.exports = (app, db) => {
     });
 
 
-   
-  
 }
