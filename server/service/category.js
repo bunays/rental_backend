@@ -86,7 +86,7 @@ module.exports = (app, db) => {
 
     });
 
-     /*
+    /*
     TODO:This api use Delete Category details in Data Base
     @Function: Delete Category details Data
     */
@@ -121,6 +121,31 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use List Category details in Data Base
+    @Function: Listing Category details Data
+    */
+    app.post('/api/category/getListAllCategoryDetails',(req,res) => {
+        try{
+            var obj = req.body
+            if(!obj){
+                res.json({success: false, message: 'Params missing',data:arryEmpty});
+            } else {
+                CATEGORYREPORT.funGetAllCategoryDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
 
+
+    });
 
 }
