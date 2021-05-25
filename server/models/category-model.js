@@ -83,6 +83,7 @@ module.exports = {
                     status: obj.status,
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
+                    datLastModifiedDateTime: null,
                     fkIntLastModifiedId: null,
                     strStatus: 'N',
                    
@@ -126,6 +127,7 @@ module.exports = {
                             img_file_urls: obj.img_file_urls,
                             status: obj.status,
                             fkIntLastModifiedId: ObjectID(fkIntLoginUserId),
+                            datLastModifiedDateTime: new Date(),
                            
                         };
                         var query = {pkIntCategoryId: ObjectID(IntCategoryId)};
@@ -157,7 +159,7 @@ module.exports = {
             try {
                
                 let fkIntLoginUserId = obj.intLoginUserId;
-                let pkIntCategoryId = obj.pkIntCategoryId;
+                let pkIntCategoryId = obj.IntCategoryId;
 
                 fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntCategoryId = (pkIntCategoryId && typeof pkIntCategoryId === 'string')? ObjectID( pkIntCategoryId.trim()) : null;
@@ -195,10 +197,10 @@ module.exports = {
         return new Promise((resolve, reject) => {
             try {
               
-                let pkIntCategoryId = obj.pkIntCategoryId;
+                let IntCategoryId = obj.IntCategoryId;
                 let fkIntLoginUserId = obj.intLoginUserId;
 
-                var match = {$match: {pkIntCategoryId: ObjectID(pkIntCategoryId)}};
+                var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
                 db.collection(config.CATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                     if (response.length) {
                         const newObject = {
@@ -207,7 +209,7 @@ module.exports = {
                             fkIntLastModifiedId: ObjectID(fkIntLoginUserId),
                             strStatus: 'D',
                         };
-                        var query = {pkIntCategoryId: ObjectID(pkIntCategoryId)};
+                        var query = {pkIntCategoryId: ObjectID(IntCategoryId)};
                         db.collection(config.CATEGORY_COLLECTION).update(query, {$set: newObject}, (err) => {
                             if (err) throw err
                             
@@ -226,8 +228,5 @@ module.exports = {
 
 
     }
-
-
-
 
 }
