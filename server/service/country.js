@@ -5,14 +5,11 @@ module.exports = (app, db) => {
     const express = require('express');
     var ObjectID = require("mongodb").ObjectID;
     const router = express.Router();
-    /* const csv = require('fast-csv');
-    const fs = require('fs');*/
     const config = require('../config/config');
     const common = require('../globel/common');
-    const COUNTRYMODELS = require('../models/country-models');
-    const COUNTRYREPORT  = require('../models/country-report-models');
+    const COUNTRYMODELS = require('../models/country-model');
+    const COUNTRYREPORT  = require('../models/country-report');
     const arryEmpty =[];
-
 
 
     /*

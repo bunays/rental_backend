@@ -7,8 +7,8 @@ module.exports = (app, db) => {
     const fs = require('fs');*/
     const config = require('../config/config');
     const common = require('../globel/common');
-    const CITYMODELS = require('../models/city-models');
-    const CITYREPORT  = require('../models/city-report-models');
+    const CITYMODELS = require('../models/city-model');
+    const CITYREPORT  = require('../models/city-report');
     const arryEmpty =[];
 
     /*

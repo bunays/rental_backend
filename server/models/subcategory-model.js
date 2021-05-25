@@ -35,7 +35,7 @@ module.exports = {
                     if (SubCategoryName) {
                         // if(Categorytype){
                             if (fkIntLoginUserId) {
-                                var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
+                                var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
                                 db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                                     if(response.length){
                                         resolve({
@@ -163,7 +163,7 @@ module.exports = {
 
                 if (pkIntsubCategoryId || strActionType === 'SAVE') {
                     if (fkIntLoginUserId) {
-                        var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
+                        var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
                         db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                             if(response.length){
                                 resolve({

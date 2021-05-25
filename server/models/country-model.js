@@ -11,20 +11,11 @@ const router = express.Router();
 var arryEmpty = [];
 
 var upperCase = require('upper-case');
-var COUNTRYREPORT = require('./country-report-models');
-
-/*
-     TODO @Function:
-     */
-
-
-
 
 
 module.exports = {
 
-    //This fucntion validate details from category form.
-
+    //This fucntion validate details from country form.
     funCountryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         console.log("funCountryValidateDetails ...",req.body)
         return new Promise((resolve, reject) => {
@@ -32,43 +23,39 @@ module.exports = {
 
             try {
                
-                let strCountryName= obj.strCountryName;
+                let CountryName= obj.CountryName;
                 let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCountryId = obj.pkIntCountryId;
                 let parentid=obj.intParentId;
          
-                strCountryName = (strCountryName && typeof strCountryName === 'string') ? strCountryName.trim() : null;
+                CountryName = (CountryName && typeof CountryName === 'string') ? CountryName.trim() : null;
                 fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntCountryId = (pkIntCountryId && typeof pkIntCountryId === 'string')? ObjectID( pkIntCountryId.trim()) : null;
                 
                 if (pkIntCountryId || strActionType === 'SAVE') {
-                    if (strCountryName) {
-                        console.log(fkIntLoginUserId)
-                                    if (fkIntLoginUserId) {
-                                        var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
-                                        db.collection(config.USERS_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                                            if(response.length){
-                                                resolve({
-                                                    success: true,
-                                                    message: 'Pass validate',
-                                                    data: arryEmpty
-                                                });
-                                    }else{
-                                        resolve({success: false, message: ' User not found', data: arryEmpty});
-                                    }
-                                            
-                                    });
+                    if (CountryName) {
+                        if (fkIntLoginUserId) {
+                            var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
+                            db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                                if(response.length){
+                                    resolve({
+                                        success: true,
+                                        message: 'Pass validate',
+                                        data: arryEmpty
+                                        });
+                                }else{
+                                    resolve({success: false, message: ' User not found', data: arryEmpty});
+                                }    
+                            });
                         } else {
                             resolve({success: false, message: ' Invalid Country User', data: arryEmpty});
                         }
-                           
                     } else {
                         resolve({success: false, message: 'Country  name is  not found', data: arryEmpty});
                     }
                 } else {
                     resolve({success: false, message: 'Countryid  name is  not found', data: arryEmpty});
                 }
-                
             } catch (e) {
                 throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
             }
@@ -82,7 +69,7 @@ module.exports = {
                
                 const newObject = {
                     pkIntCountryId:ObjectID(),
-                    strCountryName: upperCase(obj.strCountryName),
+                    CountryName: upperCase(obj.CountryName),
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime:null,
@@ -126,7 +113,7 @@ module.exports = {
                        
                         const newObject = {
 
-                           strCountryName:upperCase(obj.strCountryName),
+                           CountryName:upperCase(obj.CountryName),
                            datLastModifiedDateTime : new Date(),
                            fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
 
