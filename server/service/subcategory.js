@@ -7,8 +7,8 @@ module.exports = (app, db) => {
     const fs = require('fs');*/
     const config = require('../config/config');
     const common = require('../globel/common');
-    const SUBCATEGORYMODEL = require('../models/sub category-model');
-    const SUBCATEGORYREPORT  = require('../models/sub category-report');
+    const SUBCATEGORYMODEL = require('../models/subcategory-model');
+    const SUBCATEGORYREPORT  = require('../models/subcategory-report');
     const arryEmpty =[];
 
 

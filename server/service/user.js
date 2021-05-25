@@ -15,7 +15,6 @@ module.exports = (app, db) => {
     TODO:This api use Save User details in Data Base
     @Function: Save user details Data
     */
-
     app.post('/api/auth/signup', (req,res) =>  { 
         try{
              var obj = req.body;
@@ -43,7 +42,6 @@ module.exports = (app, db) => {
     TODO:This api use User Login details in Data Base
     @Function: Login user details Data
     */
-
     app.post('/api/auth/login', (req,res) =>  { 
         try{
             var obj = req.body;
