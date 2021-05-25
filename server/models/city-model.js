@@ -17,8 +17,6 @@ var upperCase = require('upper-case');
 
 
 
-
-
 module.exports = {
 
     //This fucntion validate details from category form.
