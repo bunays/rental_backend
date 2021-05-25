@@ -11,16 +11,13 @@ const jwt = require('jsonwebtoken');
 var upperCase = require('upper-case');
 const randomstring =require('randomstring')
 
-/*
-     TODO @Function:
-     */
-
 module.exports = {
 
+    //This fucntion register user details from user form.
     funRegisterUserDetails: InsertUserDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
-                let newObject = {}
+                // let newObject = {}
     
                 db.collection(config.USER_COLLECTION).findOne({email:obj.email}).then(user=>{
                     if(user){
@@ -92,7 +89,72 @@ module.exports = {
                 throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
             }
         });
-    }
+    },
+
+    //This fucntion login user details from user form.
+    funCheckUserNameAndPassword:funCheckUserNameAndPassword=(obj,db)=> {
+        return new Promise((resolve, reject) => {
+            try {
+                db.collection(config.USER_COLLECTION).findOne({email: obj.email}, (err, doc) => {
+                    if (err) throw err;
+                    if (!doc) {
+                        resolve({success: false, message: 'The email address is invalid', data: arryEmpty});
+                    } else {
+                        var objLoginpassword = common.validPassword(obj.password, doc);
+               
+                        if (objLoginpassword) {
+                            db.collection(config.USER_COLLECTION).aggregate([
+                                {$match: {$and: [{password: objLoginpassword.hash}, {email: obj.email}]}}
+
+                            ]).toArray((err, doc1) => {
+                                if (err) throw err;
+                                if (doc1.length === 0) {
+                                    resolve({success: false, message: 'The password is invalid', data: arryEmpty});
+                                } else {
+                                    var objPasData = {email: obj.email, intUserId: doc1[0].intUserId};
+                                    jwt.sign({user: objPasData}, config.JWT_SECRET, (err, token) => {
+                                        delete doc1[0].password;
+                                        delete doc1[0].strPrePassword;
+                                        if (obj.deviceType && obj.deviceToken) { 
+                                            var userDeviceData = {
+                                                intUserId: doc1[0].intUserId,
+                                                deviceType: obj.deviceType,
+                                                deviceToken: obj.deviceToken,
+                                                token: token,
+                                                addTime: Date.now(),
+                                                status: 0
+                                            };
+                                            db.collection(config.USER_DEVICES_COLLECTION).insert(userDeviceData, (e1, userDeviceData) => {
+                                                resolve({
+                                                    success: true,
+                                                    message: 'You are login',
+                                                    data: doc1,
+                                                    token: token
+                                                });
+                                            });
+                                        } else {
+                                            resolve({
+                                                success: true,
+                                                message: 'You are login',
+                                                data: doc1,
+                                                token: token
+                                            });
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                    }
+                });
+            } catch (e) {
+                console.log("Error", e);
+                resolve(500).json({success: false, message: "Error:" + e, data: arryEmpty});
+            }
+        });
+
+      
+    },
     
 
 }

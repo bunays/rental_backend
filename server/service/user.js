@@ -10,12 +10,13 @@ module.exports = (app, db) => {
     const USERMODELS = require('../models/user-model');
     const USERREPORT  = require('../models/user-report');
     const arryEmpty =[];
+
     /*
     TODO:This api use Save User details in Data Base
     @Function: Save user details Data
     */
 
-    app.post('/rental/registration', (req,res) =>  { 
+    app.post('/rental/auth/signup', (req,res) =>  { 
         try{
              var obj = req.body;
              var strActionType ="SAVE";
@@ -35,6 +36,35 @@ module.exports = (app, db) => {
              console.log("Error",e);
              res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
          }
+ 
+    });
+
+    /*
+    TODO:This api use User Login details in Data Base
+    @Function: Login user details Data
+    */
+
+    app.post('/rental/auth/login', (req,res) =>  { 
+        try{
+            var obj = req.body;
+            if(common.isEmptyObject(obj))  
+            {        
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+
+                USERMODELS.funCheckUserNameAndPassword(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
  
      });
  

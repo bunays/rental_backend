@@ -45,19 +45,7 @@ module.exports = (app, db) => {
                 var fileData = { fileId: fileId, filePath: filePath, originalName: originalName ,fileName:fileName};
                 
                 res.json({ success: true, message: 'Image uploaded successfully', data: fileData });
-                // var query = { 
-                //     file_url:fileData,
-                //     amount:Number(0),
-                //     description:"",
-                //     work_provider_id:ObjectID(obj.work_provider_id),
-                    
-                // };
-                // var updateData = { $push: { file_url: fileData }}
-                // // , $set: { datLastModifiedDateTime : new Date(),fkIntLastModifiedId :intUserId} }
-                // db.collection(config.TASK_COLLECTION).insert(query, updateData, function (err, resp) {
-                //    
-                // });
-            
+              
             } else {
                 res.json({ success: false, message: 'File not recieved', data: arryEmpty });
 

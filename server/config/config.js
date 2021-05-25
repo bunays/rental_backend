@@ -4,7 +4,7 @@ module.exports = {
 //mongodb+srv://admin:<password>@po4-05cug.mongodb.net/test?retryWrites=true&w=majority
 
 DATABASE_NAME :"db_rental",
-CONNECTION_URL: "mongodb+srv://Lapslock:Lapslock23@clusterlplk.ekakv.mongodb.net/pms_backend?retryWrites=true&w=majority",
+CONNECTION_URL: "mongodb+srv://jam:jam@123@cluster0-p9jn3.mongodb.net/test?retryWrites=true&w=majority",
 
     //DATABASE_NAME :"db_rental",
     //CONNECTION_URL: "mongodb+srv://Lapslock:Lapslock23@clusterlplk.ekakv.mongodb.net/pms_backend?retryWrites=true&w=majority",
@@ -15,8 +15,12 @@ CONNECTION_URL: "mongodb+srv://Lapslock:Lapslock23@clusterlplk.ekakv.mongodb.net
     //imagePath:'http://localhost:9000',
     
 
-    USER_DEVICES_COLLECTION:'cln_user_device',
+    USER_DEVICES_COLLECTION:'cln_user_devices',
     USER_COLLECTION : 'cln_user',
+
+    CATEGORY_COLLECTION : 'cln_category',
+    SUBCATEGORY_COLLECTION : 'cln_subcategory',
+
     JWT_SECRET: 'p04$&S()*2'
 
     
