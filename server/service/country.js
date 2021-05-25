@@ -1,5 +1,3 @@
-const countryModels = require('../models/country-models');
-
 module.exports = (app, db) => {
 
     const express = require('express');

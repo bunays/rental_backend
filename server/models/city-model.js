@@ -10,7 +10,6 @@ const router = express.Router();
 var arryEmpty = [];
 
 var upperCase = require('upper-case');
-var CATEGORYREPORT = require('../models/city-report-models');
 
 /*
      TODO @Function:
