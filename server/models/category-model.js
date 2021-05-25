@@ -167,7 +167,7 @@ module.exports = {
                 if (pkIntCategoryId || strActionType === 'SAVE') {
                     if (fkIntLoginUserId) {
                         var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
-                        db.collection(config. USERS_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                        db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                             if(response.length){
                                 resolve({
                                     success: true,
