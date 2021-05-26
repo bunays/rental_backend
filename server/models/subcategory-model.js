@@ -78,7 +78,7 @@ module.exports = {
                     icon_file_urls: obj.icon_file_urls,
                     img_file_urls: obj.img_file_urls,
                     status: obj.status,
-                    fkIntCategoryId: ObjectID(obj.Categorytype),
+                    fkIntCategoryId: ObjectID(obj.IntCategoryId),
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime: null,
@@ -111,8 +111,8 @@ module.exports = {
                 db.collection(config.SUBCATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                     if (response.length) {
                         const newObject = {
-                            subCategoryName: upperCase(obj.subCategoryName),
-                            fkIntCategoryId : ObjectID(obj.strCategorytype),
+                            SubCategoryName: upperCase(obj.SubCategoryName),
+                            fkIntCategoryId : ObjectID(obj.IntCategoryId),
                             icon_file_urls: obj.icon_file_urls,
                             img_file_urls: obj.img_file_urls,
                             status: obj.status,
