@@ -3,15 +3,11 @@ module.exports = (app, db) => {
     const express = require('express');
     var ObjectID = require("mongodb").ObjectID;
     const router = express.Router();
-    /* const csv = require('fast-csv');
-    const fs = require('fs');*/
     const config = require('../config/config');
     const common = require('../globel/common');
     const STATEMODELS = require('../models/state-model');
     const STATEREPORT  = require('../models/state-report');
     const arryEmpty =[];
-
-
 
     /*
     TODO:This api use Save State details in Data Base
