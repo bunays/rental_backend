@@ -15,7 +15,6 @@ module.exports = {
 
     //This fucntion validate details from subcategory form.
     funsubCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => {
-        console.log("enter in ValidateDetails",req.body )
         return new Promise((resolve, reject) => {
             var obj = req.body;
 
@@ -105,7 +104,6 @@ module.exports = {
 
     //This fucntion update details from subcategory form.
     funUpdatesubCategoryDetails: funUpdatesubCategoryDetails = (obj, db) => {
-        console.log("funUpdateCategoryDetails reched?".obj)
         return new Promise((resolve, reject) => {
             try {
                   
@@ -114,7 +112,6 @@ module.exports = {
 
                 var match = {$match: {pkIntsubCategoryId: ObjectID(IntsubCategoryId)}};
                 db.collection(config.SUBCATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                    console.log("update datas ?",response)
                     if (response.length) {
                         const newObject = {
                             subCategoryName: upperCase(obj.subCategoryName),
@@ -127,7 +124,6 @@ module.exports = {
                         };
                         var query = {pkIntsubCategoryId: ObjectID(IntsubCategoryId)};
                         db.collection(config.SUBCATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
-                            console.log("updated CATEGORY_COLLECTION",newObject)
                             if (err) resolve({success: false, message: 'Category Update Failed.', data: arryEmpty});
                             else{
                                 resolve({success: true, message: 'User saved successfully.', data: [doc]});
@@ -158,8 +154,6 @@ module.exports = {
                 
                 fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string') ? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntsubCategoryId = (pkIntsubCategoryId && typeof pkIntsubCategoryId === 'string') ? ObjectID(pkIntsubCategoryId.trim()) : null;
-                
-                console.log("(pkIntsubCategoryId || strActionType",pkIntsubCategoryId)
 
                 if (pkIntsubCategoryId || strActionType === 'SAVE') {
                     if (fkIntLoginUserId) {

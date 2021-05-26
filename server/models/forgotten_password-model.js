@@ -65,7 +65,6 @@ module.exports = {
                 let email = obj.email.toLowerCase();
 
                 db.collection(config.USER_COLLECTION).findOne({email:obj.email}).then(fetch_emails=>{
-                    console.log("show here ------passwrd",fetch_emails)
                     if (fetch_emails) {
                         wp_id = fetch_emails._id;
                         email = obj.email;
@@ -78,10 +77,7 @@ module.exports = {
                                           </html>`
                      
                              send_email(email, subject, body)
-                            // console.log("resssssssssssssss")
-                            // // resolve(result);
                             resolve({success: true, message: 'Send to your emil.',data:api_link});
-                        // })
                        
                     }else{
                         resolve({success: false, message: 'No data found.', data: arryEmpty});

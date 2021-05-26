@@ -17,7 +17,6 @@ module.exports = {
 
     //This function validate details from country form.
     funCountryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
-        console.log("funCountryValidateDetails ...",req.body)
         return new Promise((resolve, reject) => {
             var obj = req.body;
 

@@ -21,7 +21,6 @@ module.exports = (app, db) => {
         try{
             var obj = req.body;
             var strActionType ="SAVE";
-            console.log("obje ------",obj)
             if(common.isEmptyObject(obj)) {    
                 res.status(200).json({success: false, message: 'Params missing', data:arryEmpty});    
             } else { 
