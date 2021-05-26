@@ -19,27 +19,26 @@ var upperCase = require('upper-case');
 
 module.exports = {
 
-    //This fucntion validate details from category form.
-
+        //This fucntion validate details from city form.
     funCityValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
             var obj = req.body;
 
             try {
                
-                let strCityName= obj.strCityName;
+                let CityName= obj.CityName;
                 let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCityId = obj.pkIntCityId;
                 let fkIntStateId = obj.fkIntStateId;
                 let parentid=obj.intParentId;
          
-                strCityName = (strCityName && typeof strCityName === 'string') ? strCityName.trim() : null;
+                CityName = (CityName && typeof CityName === 'string') ? CityName.trim() : null;
                 fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 fkIntStateId = (fkIntStateId && typeof fkIntStateId === 'string')? ObjectID( fkIntStateId.trim()) : null;
                 pkIntCityId = (pkIntCityId && typeof pkIntCityId === 'string')? ObjectID( pkIntCityId.trim()) : null;
                 
                 if (pkIntCityId || strActionType === 'SAVE') {
-                    if (strCityName) {
+                    if (CityName) {
                         if (fkIntStateId) {
                             if (fkIntLoginUserId) {
                                 var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
@@ -75,6 +74,7 @@ module.exports = {
         });
     },
 
+        //This fucntion validate details from city form.
     funSaveCityDetails: funInsertCityDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -82,7 +82,7 @@ module.exports = {
                 const newObject = {
                     
                     pkIntCityId:ObjectID(),
-                    strCityName: upperCase(obj.strCityName),
+                    CityName: upperCase(obj.CityName),
                     fkIntStateId: ObjectID(obj.fkIntStateId),
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
@@ -113,26 +113,24 @@ module.exports = {
 
     },
     
+        //This fucntion validate details from city form.
     funUpdateCityDetails: funUpdateCityDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
                       
-                let pkIntCityId =obj.pkIntCityId;
+                let IntCityId =obj.pkIntCityId;
                
-                var match = {$match: {pkIntCityId: ObjectID(pkIntCityId)}};
+                var match = {$match: {pkIntCityId: ObjectID(IntCityId)}};
                 db.collection(config.CITY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                    console.log("update datas ?",response)
                     if (response.length) {
-                       
                         const newObject = {
-
-                           strCityName:upperCase(obj.strCityName),
+                           CityName:upperCase(obj.CityName),
                            fkIntStateId:ObjectID(obj.fkIntStateId),
                            datLastModifiedDateTime : new Date(),
                            fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                            
                         };
-                        var query = {pkIntCityId: ObjectID(pkIntCityId)};
+                        var query = {pkIntCityId: ObjectID(IntCityId)};
                         db.collection(config.CITY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
                             if (err) resolve({success: false, message: 'City Update Failed.', data: arryEmpty});
                             else{
@@ -153,6 +151,7 @@ module.exports = {
 
     },
      
+        //This fucntion validate details from city form.
     funCitydeleteValidateDetails: ValidateDetails = (strActionType, req, db) => {
         console.log("enter in ValidateDetails",req.body )
         return new Promise((resolve, reject) => {
@@ -160,7 +159,7 @@ module.exports = {
 
             try {
                            
-                let pkIntCityId = obj.pkIntCityId;  
+                let pkIntCityId = obj.IntCityId;  
                 let  fkIntLoginUserId = obj.intLoginUserId;                                    
             
                 pkIntCityId = (pkIntCityId && typeof pkIntCityId === 'string')? ObjectID( pkIntCityId.trim()) : null;
@@ -193,15 +192,14 @@ module.exports = {
         });
     },
 
+        //This fucntion validate details from city form.
     funDeleteCity: funDeleteCountry = (obj, db) => {
-        console.log("reched here funDeleteCity")
         return new Promise((resolve, reject) => {
             try {
               
-                let pkIntCityId = obj.pkIntCityId;
-                
+                let IntCityId = obj.IntCityId;
   
-                var match = {$match: {pkIntCityId: ObjectID(pkIntCityId)}};
+                var match = {$match: {pkIntCityId: ObjectID(IntCityId)}};
                 db.collection(config.CITY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
                     if (response.length) {
                         const newObject = {
@@ -210,7 +208,7 @@ module.exports = {
                             fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                             strStatus: 'D',
                         };
-                        var query = {pkIntCityId: ObjectID(pkIntCityId)};
+                        var query = {pkIntCityId: ObjectID(IntCityId)};
                         db.collection(config.CITY_COLLECTION).update(query, {$set: newObject}, (err) => {
                             if (err) throw err
                             

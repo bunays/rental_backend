@@ -14,9 +14,8 @@ var upperCase = require('upper-case');
 
 module.exports = {
 
-    //This function validate details from category form.
+        //This function validate details from category form.
     funCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
-        console.log("enter in ValidateDetails",req.body )
         return new Promise((resolve, reject) => {
             var obj = req.body;
 
@@ -69,7 +68,7 @@ module.exports = {
         });
     },
 
-    //This function insert details from category form.
+        //This function insert details from category form.
     funSaveCategoryDetails: funInsertCategoryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -107,9 +106,8 @@ module.exports = {
 
     },
 
-     //This function update details from category form.
+        //This function update details from category form.
     funUpdateCategoryDetails: funUpdateCategoryDetails = (obj, db) => {
-        console.log("funUpdateCategoryDetails reched?".obj)
         return new Promise((resolve, reject) => {
             try {
                   
@@ -118,7 +116,6 @@ module.exports = {
 
                 var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
                 db.collection(config.CATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                    console.log("update datas ?",response)
                     if (response.length) {
                         const newObject = {
                             CategoryName: upperCase(obj.CategoryName),
@@ -132,7 +129,6 @@ module.exports = {
                         };
                         var query = {pkIntCategoryId: ObjectID(IntCategoryId)};
                         db.collection(config.CATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
-                            console.log("updated CATEGORY_COLLECTION",newObject)
                             if (err) resolve({success: false, message: 'Category Update Failed.', data: arryEmpty});
                             else{
                                 resolve({success: true, message: 'User saved successfully.', data: [doc]});
@@ -152,7 +148,7 @@ module.exports = {
 
     },
 
-    //This function delete validate details from category form.
+        //This function delete validate details from category form.
     fundeleteCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -192,7 +188,7 @@ module.exports = {
         });
     },
 
-    //This function Delete details from category form.
+        //This function Delete details from category form.
     funDeleteCategory: funDeleteCategory = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

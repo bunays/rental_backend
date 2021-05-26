@@ -15,63 +15,39 @@ module.exports = (app, db) => {
     TODO:This api use Save City details in Data Base
     @Function: Save user details Data
     */
-
     app.post('/api/city/SavenewCity', (req,res) =>{       
-    try{
-    var obj = req.body;
-    var strActionType ="SAVE";
-        if(!obj)
-        {
-            res.status(500).json({success: false, message: 'Params missing', data:arryEmpty});
-        } else {
-        CITYMODELS.funCityValidateDetails(strActionType,req,db).then(( result )=>{
-            if(result && result.success === true) {
-                    CITYMODELS.funSaveCityDetails(obj,db).then(( result )=>{
-                        if(result && result.success === true) {
-                            res.status(200).json(result)
-                        } else {
-                        res.status(200).json(result)
-                        }
-                        });
+        try{
+            var obj = req.body;
+            var strActionType ="SAVE";
+            if(!obj) {
+                res.status(500).json({success: false, message: 'Params missing', data:arryEmpty});
             } else {
-                res.status(200).json(result)
+                CITYMODELS.funCityValidateDetails(strActionType,req,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        CITYMODELS.funSaveCityDetails(obj,db).then(( result )=>{
+                            if(result && result.success === true) {
+                                res.status(200).json(result)
+                            } else {
+                                res.status(200).json(result)
+                            }
+                        });
+                    } else {
+                        res.status(200).json(result)
+                    }
+                });
             }
-        });
-    }
-    } catch (e) {
-    console.log("Error",e);
-    res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
-    }
-
-    });
-
-    app.post('/api/city/getListAllCityDetails', (req,res) =>{
-    try{
-        var obj = req.body
-        if(!obj)
-        {
-            res.json({success: false, message: 'Params missing',data:arryEmpty});
-        } else
-        {
-            CITYREPORT.funGetAllCityDetails(obj,db).then(( result )=>{
-                if(result && result.success === true) {
-                    res.status(200).json(result)
-                }
-                else {
-                    res.status(200).json(result)
-                }
-            });
+        } catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
         }
-    }catch (e) {
-        console.log("Error",e);
-        res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
-    }
-
 
     });
 
+    /*
+    TODO:This api use Update City details in Data Base
+    @Function: Update user details Data
+    */
     app.post('/api/City/UpdateCityDetails', (req,res) => {
-
         try{
             var obj = req.body;
             var strActionType ="UPDATE";
@@ -80,7 +56,6 @@ module.exports = (app, db) => {
             } else {
                 CITYMODELS.funCityValidateDetails(strActionType,req,db).then(( result )=>{
                     if(result && result.success === true) {
-
                         CITYMODELS.funUpdateCityDetails(obj,db).then(( result )=>{
                             if(result && result.success === true) {
 
@@ -102,6 +77,10 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use Delete City details in Data Base
+    @Function: Delete user details Data
+    */
     app.post('/api/city/DeleteCityDetails', (req,res) => {
 
         try{
@@ -132,20 +111,21 @@ module.exports = (app, db) => {
     
     });
 
+    /*
+    TODO:This api use Auto complete City details in Data Base
+    @Function: Auto complete user details Data
+    */
     app.post('/api/city/autoCompleteCity', (req,res) =>{
         try{
-            
             var obj = req.body;
             if(!obj)
             {
                 res.json({success: false, message: 'Params missing',data:arryEmpty});
-            } else
-            {
+            } else {
                 CITYREPORT.funGetAllCities(obj,db).then(( result )=>{
                     if(result && result.success === true) {
                         res.status(200).json(result)
-                    }
-                    else {
+                    }else {
                         res.status(200).json(result)
                     }
                 });
@@ -154,29 +134,28 @@ module.exports = (app, db) => {
             console.log("Error",e);
             res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
         }
-
-
     });
 
-    app.post('/api/city/FindDonationWithCity', (req,res) =>{
+    /*
+    TODO:This api use Listing City details in Data Base
+    @Function: Listing user details Data
+    */
+    app.post('/api/city/getListAllCityDetails', (req,res) =>{
         try{
-            
-            var obj = req.body;
+            var obj = req.body
             if(!obj)
             {
                 res.json({success: false, message: 'Params missing',data:arryEmpty});
-            } else
-            {
-                CITYREPORT.funfindfoodincities(obj,db).then(( result )=>{
+            } else {
+                CITYREPORT.funGetAllCityDetails(obj,db).then(( result )=>{
                     if(result && result.success === true) {
                         res.status(200).json(result)
-                    }
-                    else {
+                    } else {
                         res.status(200).json(result)
                     }
                 });
             }
-        } catch (e) {
+        }catch (e) {
             console.log("Error",e);
             res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
         }
@@ -184,5 +163,6 @@ module.exports = (app, db) => {
 
     });
 
+   
 
 }

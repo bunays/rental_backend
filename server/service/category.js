@@ -25,12 +25,8 @@ module.exports = (app, db) => {
             } else {
                 CATEGORYMODEL.funCategoryValidateDetails(strActionType,req,db).then(( result )=>{
                         if(result && result.success === true) {
-                            console.log("funSaveCategoryDetails",req.body)
-
                             CATEGORYMODEL.funSaveCategoryDetails(obj,db).then(( result )=>{
                             if(result && result.success === true) {
-                                console.log("funSaveCategoryDetails OF THE  details ",req.body)
-
                                 res.status(200).json(result)
                                 } else {
                                     res.status(200).json(result)
@@ -98,7 +94,6 @@ module.exports = (app, db) => {
             } else {
                 CATEGORYMODEL.fundeleteCategoryValidateDetails(strActionType,req,db).then(( result )=>{
                     if(result && result.success === true) {
-                        console.log("fundeleteCategoryValidateDetails",result)
                         CATEGORYMODEL.funDeleteCategory(obj,db).then(( result )=>{
                             if(result && result.success === true) {
                                 res.status(200).json(result)
