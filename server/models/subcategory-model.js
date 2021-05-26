@@ -74,7 +74,7 @@ module.exports = {
              
                 const newObject = {
                     pkIntsubCategoryId:ObjectID(),
-                    subCategoryName: upperCase(obj.subCategoryName),
+                    SubCategoryName: upperCase(obj.SubCategoryName),
                     icon_file_urls: obj.icon_file_urls,
                     img_file_urls: obj.img_file_urls,
                     status: obj.status,
@@ -88,10 +88,7 @@ module.exports = {
                 };
                 db.collection(config.SUBCATEGORY_COLLECTION).insert(newObject, (err, doc) => {
                     if (err)resolve({success: false, message: 'subCategory Creation Failed.', data: [doc.ops]});
-                        else if(doc && doc.ops && doc.ops.length) {
-                            objValue =doc.ops[0];
-                            objData ={strDocumentNo:ObjectID(pkIntsubCategoryId)}
-                    } else{
+                    else{
                         resolve({success: true, message: 'User saved successfully.', data: [doc.ops[0]]});
                     }
                 })
