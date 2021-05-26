@@ -13,7 +13,7 @@ var upperCase = require('upper-case');
 module.exports = {
 
 
-    //This fucntion validate details from subcategory form.
+        //This fucntion validate details from subcategory form.
     funsubCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => {
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -67,7 +67,7 @@ module.exports = {
         });
     },
 
-    //This fucntion insert details from subcategory form.
+        //This fucntion insert details from subcategory form.
     funSavesubCategoryDetails: funInsertCategoryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -99,7 +99,7 @@ module.exports = {
 
     },
 
-    //This fucntion update details from subcategory form.
+        //This fucntion update details from subcategory form.
     funUpdatesubCategoryDetails: funUpdatesubCategoryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -140,7 +140,7 @@ module.exports = {
 
     },
 
-     //This fucntion delete validate details from subcategory form.
+        //This fucntion delete validate details from subcategory form.
     funsubCategorydeleteValidateDetails: ValidateDetails = (strActionType, req, db) => {
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -180,7 +180,7 @@ module.exports = {
         });
     },
 
-    //This fucntion delete details from subcategory form.
+        //This fucntion delete details from subcategory form.
     funDeletesubCategory: funDeletesubCategory = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
