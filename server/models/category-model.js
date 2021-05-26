@@ -14,7 +14,7 @@ var upperCase = require('upper-case');
 
 module.exports = {
 
-    //This fucntion validate details from category form.
+    //This function validate details from category form.
     funCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         console.log("enter in ValidateDetails",req.body )
         return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ module.exports = {
         });
     },
 
-    //This fucntion insert details from category form.
+    //This function insert details from category form.
     funSaveCategoryDetails: funInsertCategoryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -107,13 +107,13 @@ module.exports = {
 
     },
 
-     //This fucntion update details from category form.
+     //This function update details from category form.
     funUpdateCategoryDetails: funUpdateCategoryDetails = (obj, db) => {
         console.log("funUpdateCategoryDetails reched?".obj)
         return new Promise((resolve, reject) => {
             try {
                   
-                let IntCategoryId = obj.IntCategoryId;
+                let IntCategoryId = obj.pkIntCategoryId;
                 let fkIntLoginUserId = obj.intLoginUserId;
 
                 var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
@@ -152,7 +152,7 @@ module.exports = {
 
     },
 
-    //This fucntion delete validate details from category form.
+    //This function delete validate details from category form.
     fundeleteCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -192,7 +192,7 @@ module.exports = {
         });
     },
 
-    //This fucntion Delete details from category form.
+    //This function Delete details from category form.
     funDeleteCategory: funDeleteCategory = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

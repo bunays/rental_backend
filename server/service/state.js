@@ -17,8 +17,6 @@ module.exports = (app, db) => {
     TODO:This api use Save State details in Data Base
     @Function: Save user details Data
     */
-
-
     app.post('/api/state/SavenewState', (req,res) =>{   
         try{
             var obj = req.body;
@@ -52,6 +50,10 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use Update State details in Data Base
+    @Function: Update user details Data
+    */
     app.post('/api/State/UpdateStateDetails', (req,res) => {
 
         try{
@@ -84,7 +86,10 @@ module.exports = (app, db) => {
 
     });
 
-    
+     /*
+    TODO:This api use Delete State details in Data Base
+    @Function: Delete user details Data
+    */
     app.post('/api/state/DeleteStateDetails', (req,res) => {
 
         try{
@@ -115,6 +120,10 @@ module.exports = (app, db) => {
     
     });
 
+    /*
+    TODO:This api use Listing State details in Data Base
+    @Function: Listing user details Data
+    */
     app.post('/api/state/getListAllStateDetails', (req,res) =>{
         try{
             var obj = req.body
@@ -140,27 +149,32 @@ module.exports = (app, db) => {
     
     });
 
-        app.post('/api/state/autoCompleteState', (req,res) =>{
-            try{
-            
-                var obj = req.body;
-                if(!obj)
-                {
-                    res.json({success: false, message: 'Params missing',data:arryEmpty});
-                } else
-                {
-                    STATEREPORT.funGetAllStates(obj,db).then(( result )=>{
-                        if(result && result.success === true) {
-                            res.status(200).json(result)
-                        }
-                        else {
-                            res.status(200).json(result)
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log("Error",e);
-                res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+    /*
+    TODO:This api use Auto complete State details in Data Base
+    @Function: Auto complete user details Data
+    */
+    app.post('/api/state/autoCompleteState', (req,res) =>{
+        try{
+        
+            var obj = req.body;
+            if(!obj)
+            {
+                res.json({success: false, message: 'Params missing',data:arryEmpty});
+            } else
+            {
+                STATEREPORT.funGetAllStates(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
             }
-        });
+        } catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+    });
+
 }

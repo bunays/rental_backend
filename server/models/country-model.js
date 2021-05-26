@@ -15,7 +15,7 @@ var upperCase = require('upper-case');
 
 module.exports = {
 
-    //This fucntion validate details from country form.
+    //This function validate details from country form.
     funCountryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         console.log("funCountryValidateDetails ...",req.body)
         return new Promise((resolve, reject) => {
@@ -63,6 +63,7 @@ module.exports = {
         });
     },
 
+    //This function save details from country form.
     funSaveCountryDetails: funInsertCOUNTRYDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -90,11 +91,12 @@ module.exports = {
 
     },
 
+    //This function update details from country form.
     funUpdateCountryDetails: funUpdateCountryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
                       
-                let IntCountryId =obj.IntCountryId;
+                let IntCountryId =obj.pkIntCountryId;
                
                 var match = {$match: {pkIntCountryId: ObjectID(IntCountryId)}};
                 db.collection(config.COUNTRY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
@@ -122,6 +124,7 @@ module.exports = {
 
     },
     
+    //This function delete validate details from country form.
     funCountrydeleteValidateDetails: ValidateDetails = (strActionType, req, db) => {
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -158,6 +161,7 @@ module.exports = {
         });
     },
 
+    //This function delete details from country form.
     funDeleteCountry: funDeleteCountry = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

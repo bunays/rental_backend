@@ -45,6 +45,10 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use Update Country details in Data Base
+    @Function: Update Country details Data
+    */
     app.post('/api/Country/UpdateCountryDetails', (req,res) => {
 
         try{
@@ -77,6 +81,10 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use Delete Country details in Data Base
+    @Function: Delete Country details Data
+    */
     app.post('/api/country/DeleteCountryDetails', (req,res) => {
 
         try{
@@ -107,6 +115,10 @@ module.exports = (app, db) => {
     
     });
 
+    /*
+    TODO:This api use Listing Country details in Data Base
+    @Function: Listing Country details Data
+    */
     app.post('/api/country/getListAllCountryDetails', (req,res) =>{
         try{
             var obj = req.body
@@ -132,6 +144,10 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api use Auto complete Country details in Data Base
+    @Function: Auto complete Country details Data
+    */
     app.post('/api/country/autoCompleteCountry', (req,res) =>{
         try{
            

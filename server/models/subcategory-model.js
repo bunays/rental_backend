@@ -109,7 +109,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             try {
                   
-                let IntsubCategoryId = obj.IntsubCategoryId;
+                let IntsubCategoryId = obj.pkIntsubCategoryId;
                 let fkIntLoginUserId = obj.intLoginUserId;
 
                 var match = {$match: {pkIntsubCategoryId: ObjectID(IntsubCategoryId)}};
