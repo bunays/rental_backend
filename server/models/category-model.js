@@ -121,7 +121,7 @@ module.exports = {
                     console.log("update datas ?",response)
                     if (response.length) {
                         const newObject = {
-                            strCategoryName: upperCase(obj.strCategoryName),
+                            CategoryName: upperCase(obj.CategoryName),
                             CategoryColor: obj.CategoryColor,
                             icon_file_urls: obj.icon_file_urls,
                             img_file_urls: obj.img_file_urls,
