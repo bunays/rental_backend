@@ -24,11 +24,33 @@ module.exports = {
                     intSkipCount = parseInt(obj.intSkipCount);
                 if(obj.intPageLimit)
                     intPageLimit = parseInt(obj.intPageLimit);
-    
+
+                var lookupMainSubcategory = {
+                    $lookup: {
+                        from: config.CATEGORY_COLLECTION,
+                        let: {intCatIds: "$fkIntCategoryId", strStatus: "N"},
+                        pipeline: [
+                            {$match: {$expr: {$and:
+                                            [
+                                                {$eq: ["$strStatus", "$$strStatus"]},
+                                                {$eq: ["$pkIntCategoryId", "$$intCatIds"]},
+                                            ]}}},
+                            { $project: {CategoryName: 1, pkIntCategoryId: 1, _id: 0} }
+                        ],
+                        as: "arrayMainSubCategory"
+                    }
+                };
+                let unwindarrayMainSubcategory = {$unwind : "$arrayMainSubCategory"}
                 var Project = { $project : {
+        
                     _id:"$_id",
                     pkIntCategoryId: "$pkIntCategoryId",
-                    subCategoryName:"$subCategoryName", 
+                    SubCategoryName:"$SubCategoryName", 
+                    fkIntCategoryId:"$fkIntCategoryId", 
+                    icon_file_urls:"$icon_file_urls", 
+                    img_file_urls:"$img_file_urls", 
+                    status:"$status", 
+                    "arrayMainSubCategory":"$arrayMainSubCategory"
                 }};
 
                 db.collection(config.SUBCATEGORY_COLLECTION).find(query).count()
@@ -38,6 +60,8 @@ module.exports = {
                                 intPageLimit =parseInt(totalPageCount);
                             db.collection(config.SUBCATEGORY_COLLECTION).aggregate([{$match:query},
                                 { "$skip": intSkipCount }, { "$limit": intPageLimit },{$sort:{name:1}},
+                                lookupMainSubcategory,
+                                unwindarrayMainSubcategory,
                                 Project
                             ]).toArray( (err,doc) => {
                                 if (err) throw err;
