@@ -93,9 +93,9 @@ module.exports = (app, db) => {
             if(!obj) {
                 res.json({success: false, message: 'Parameter missing',data:arryEmpty});
             } else {
-                subCategorymodels.funsubCategorydeleteValidateDetails(strActionType,req,db).then(( result )=>{
+                SUBCATEGORYMODEL.funsubCategorydeleteValidateDetails(strActionType,req,db).then(( result )=>{
                     if(result && result.success === true) {
-                        subCategorymodels.funDeletesubCategory(obj,db).then(( result )=>{
+                        SUBCATEGORYMODEL.funDeletesubCategory(obj,db).then(( result )=>{
                             if(result && result.success === true) {
                                 res.status(200).json(result)
                             }
