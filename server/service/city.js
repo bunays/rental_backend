@@ -58,7 +58,6 @@ module.exports = (app, db) => {
                     if(result && result.success === true) {
                         CITYMODELS.funUpdateCityDetails(obj,db).then(( result )=>{
                             if(result && result.success === true) {
-
                                 res.status(200).json(result)
                             }
                             else {
@@ -82,7 +81,6 @@ module.exports = (app, db) => {
     @Function: Delete user details Data
     */
     app.post('/api/city/DeleteCityDetails', (req,res) => {
-
         try{
             var obj = req.body;
             var strActionType ="UPDATE";
@@ -94,8 +92,7 @@ module.exports = (app, db) => {
                         CITYMODELS.funDeleteCity(obj,db).then(( result )=>{
                             if(result && result.success === true) {
                                 res.status(200).json(result)
-                            }
-                            else {
+                            } else {
                                 res.status(200).json(result)
                             }
                         });

@@ -1,7 +1,6 @@
 const config = require('../config/config');
 var strQryCount = { $group: { _id: null, count: { $sum: 1 }}};
 
-
 const express = require('express');
 var ObjectID = require("mongodb").ObjectID;
 const router = express.Router();
@@ -18,7 +17,7 @@ module.exports = {
             try{
                 if(obj.intCountryId){
                     var strWhere ={$match:{fkIntCountryId:ObjectID(obj.intCountryId),strStatus:'N'}};
-                    var Project = { $project :{pkIntStateId:"$pkIntCountryId",StateName:"$StateName",pkIntStateId:"$pkIntStateId",_id:0}};
+                    var Project = { $project :{pkIntStateId:"$pkIntStateId",StateName:"$StateName",_id:0}};
                     db.collection(config.STATE_COLLECTION).aggregate([strWhere,Project]).toArray( (err, doc)  => {
                         if (err) throw err;
                         resolve({success: true,message: 'Successfully.', data: doc});
@@ -26,7 +25,7 @@ module.exports = {
                     
                 } else {
                     var strWhere ={$match:{strStatus:'N'}};
-                    var Project = { $project :{pkIntStateId:"$pkIntStateId",StateName:"$StateName",pkIntStateId:"$pkIntStateId",_id:0}};
+                    var Project = { $project :{pkIntStateId:"$pkIntStateId",StateName:"$StateName",_id:0}};
                     db.collection(config.STATE_COLLECTION).aggregate([strWhere,Project]).toArray( (err, doc)  => {
                         if (err) throw err;
                         resolve({success: true,message: 'Successfully.', data: doc});

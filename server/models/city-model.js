@@ -83,6 +83,7 @@ module.exports = {
                     
                     pkIntCityId:ObjectID(),
                     CityName: upperCase(obj.CityName),
+                    fkIntCountryId: ObjectID(obj.fkIntCountryId),
                     fkIntStateId: ObjectID(obj.fkIntStateId),
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
@@ -125,6 +126,7 @@ module.exports = {
                     if (response.length) {
                         const newObject = {
                            CityName:upperCase(obj.CityName),
+                           fkIntCountryId: ObjectID(obj.fkIntCountryId),
                            fkIntStateId:ObjectID(obj.fkIntStateId),
                            datLastModifiedDateTime : new Date(),
                            fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
@@ -153,7 +155,6 @@ module.exports = {
      
         //This fucntion validate details from city form.
     funCitydeleteValidateDetails: ValidateDetails = (strActionType, req, db) => {
-        console.log("enter in ValidateDetails",req.body )
         return new Promise((resolve, reject) => {
             var obj = req.body;
 
@@ -163,8 +164,6 @@ module.exports = {
                 let  fkIntLoginUserId = obj.intLoginUserId;                                    
             
                 pkIntCityId = (pkIntCityId && typeof pkIntCityId === 'string')? ObjectID( pkIntCityId.trim()) : null;
-               
-                console.log("pkIntCountryId  || strActionType",pkIntCityId)
               
                 if (pkIntCityId || strActionType === 'SAVE') {   
                     if (fkIntLoginUserId) {
