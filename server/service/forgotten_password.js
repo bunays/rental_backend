@@ -5,8 +5,8 @@ module.exports = (app, db) => {
     const router = express.Router();
     /* const csv = require('fast-csv');
     const fs = require('fs');*/
-    const config = require('../../config/config');
-    const common = require('../../globel/common');
+    const config = require('../config/config');
+    const common = require('../globel/common');
     const FORGOTTEN_PASSWORDMODELS = require('../models/forgotten_password-model');
     const arryEmpty =[];
 
