@@ -1,3 +1,5 @@
+const bookingReport = require('../models/booking-report');
+
 module.exports = (app, db) => {
 
     const express = require('express');
@@ -44,5 +46,32 @@ module.exports = (app, db) => {
 
     });
 
+    
+      /*
+    TODO:This api use List booking details in Data Base
+    @Function: Listing booking details Data
+    */
+    app.post('/api/booking/getListAllBookingDetails',(req,res) => {
+        try{
+            var obj = req.body
+            if(!obj){
+                res.json({success: false, message: 'Params missing',data:arryEmpty});
+            } else {
+                BOOKINGREPORT.funGetAllBookingDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+
+    });
 
 }
