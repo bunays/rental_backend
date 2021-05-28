@@ -22,6 +22,7 @@ CONNECTION_URL: "mongodb+srv://jam:jam@123@cluster0-p9jn3.mongodb.net/test?retry
     SUBCATEGORY_COLLECTION : 'cln_subcategory',
 
     PRODUCT_COLLECTION:'cln_product',
+    BOOKING_COLLECTION:'cln_booking',
 
     COUNTRY_COLLECTION:'cln_country',
     CITY_COLLECTION:'cln_city',
