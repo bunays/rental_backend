@@ -15,9 +15,8 @@ module.exports = (app, db) => {
 
     /*
     TODO:This api used to save product details in  Data Base
-    @Function: Save product details Data
+    @Function: save product details Data
     */
-
     app.post('/api/product/SaveProductDetails', (req,res) =>{
         try{
             var obj = req.body;
@@ -46,8 +45,70 @@ module.exports = (app, db) => {
 
     });
 
+    /*
+    TODO:This api used to update product details in  Data Base
+    @Function: update product details Data
+    */    
+    app.post('/api/product/UpdateProductDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                PRODUCTMODELS.funProductValidateDetails(strActionType,req,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        PRODUCTMODELS.funUpdateProductDetails(obj,db).then(( result )=>{
+                            if(result && result.success === true) {
+                                res.status(200).json(result)
+                            }
+                            else {
+                                res.status(200).json(result)
+                            }
+                        });
+                    } else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
 
+    });
 
-
+    /*
+    TODO:This api used to delete product details in  Data Base
+    @Function: delete product details Data
+    */    
+    app.post('/api/product/DeleteProductDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                PRODUCTMODELS.fundeleteProductValidateDetails(strActionType,req,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        PRODUCTMODELS.funDeleteProduct(obj,db).then(( result )=>{
+                            if(result && result.success === true) {
+                                res.status(200).json(result)
+                            }
+                            else {
+                                res.status(200).json(result)
+                            }
+                        });
+                    } else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+    
+    });
 
 }
