@@ -111,4 +111,30 @@ module.exports = (app, db) => {
     
     });
 
+     /*
+    TODO:This api use List subCategory details in Data Base
+    @Function: Listing subCategory details Data
+    */
+    app.post('/api/product/getListAllProductDetails',(req,res) => {
+        try{
+            var obj = req.body
+            if(!obj){
+                res.json({success: false, message: 'Params missing',data:arryEmpty});
+            } else {
+                PRODUCTREPORT.funGetAllProductDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+    });
+
+
 }

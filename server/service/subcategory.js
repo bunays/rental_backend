@@ -116,7 +116,7 @@ module.exports = (app, db) => {
     });
 
 
-      /*
+    /*
     TODO:This api use List subCategory details in Data Base
     @Function: Listing subCategory details Data
     */

@@ -25,7 +25,7 @@ module.exports = {
                 if(obj.intPageLimit)
                     intPageLimit = parseInt(obj.intPageLimit);
 
-                var lookupMainSubcategory = {
+                var lookupMainCategory = {
                     $lookup: {
                         from: config.CATEGORY_COLLECTION,
                         let: {intCatIds: "$fkIntCategoryId", strStatus: "N"},
@@ -37,10 +37,10 @@ module.exports = {
                                             ]}}},
                             { $project: {CategoryName: 1, pkIntCategoryId: 1, _id: 0} }
                         ],
-                        as: "arrayMainSubCategory"
+                        as: "arrayMainCategory"
                     }
                 };
-                let unwindarrayMainSubcategory = {$unwind : "$arrayMainSubCategory"}
+                let unwindarrayMainCategory = {$unwind : "$arrayMainCategory"}
                 var Project = { $project : {
         
                     _id:"$_id",
@@ -60,8 +60,8 @@ module.exports = {
                                 intPageLimit =parseInt(totalPageCount);
                             db.collection(config.SUBCATEGORY_COLLECTION).aggregate([{$match:query},
                                 { "$skip": intSkipCount }, { "$limit": intPageLimit },{$sort:{name:1}},
-                                lookupMainSubcategory,
-                                unwindarrayMainSubcategory,
+                                lookupMainCategory,
+                                unwindarrayMainCategory,
                                 Project
                             ]).toArray( (err,doc) => {
                                 if (err) throw err;
