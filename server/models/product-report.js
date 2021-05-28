@@ -40,27 +40,45 @@ module.exports = {
                     }
                 };
                 let unwindarrayMainCategory = {$unwind : "$arrayMainCategory"}
+
+                var lookupMainsubCategory = {
+                    $lookup: {
+                        from: config.SUBCATEGORY_COLLECTION,
+                        let: {intCatIds: "$fkIntsubCategoryId", strStatus: "N"},
+                        pipeline: [
+                            {$match: {$expr: {$and:
+                                            [
+                                                {$eq: ["$strStatus", "$$strStatus"]},
+                                                {$eq: ["$pkIntsubCategoryId", "$$intCatIds"]},
+                                            ]}}},
+                            { $project: {SubCategoryName: 1, pkIntsubCategoryId: 1, _id: 0} }
+                        ],
+                        as: "arrayMainsubCategory"
+                    }
+                };
+                let unwindarrayMainsubCategory = {$unwind : "$arrayMainsubCategory"}
                 var Project = { $project : {
         
                     _id:"$_id",
-                    pkIntCategoryId: "$pkIntCategoryId",
-                    SubCategoryName:"$SubCategoryName", 
-                    fkIntCategoryId:"$fkIntCategoryId", 
-                    icon_file_urls:"$icon_file_urls", 
-                    img_file_urls:"$img_file_urls", 
+                    pkIntProductId: "$pkIntProductId",
+                    ProductName:"$ProductName", 
+                    ProductId:"$ProductId", 
                     status:"$status", 
+                    "arrayMainCategory":"$arrayMainCategory",
                     "arrayMainSubCategory":"$arrayMainSubCategory"
                 }};
 
-                db.collection(config.SUBCATEGORY_COLLECTION).find(query).count()
+                db.collection(config.PRODUCT_COLLECTION).find(query).count()
                     .then((totalPageCount) => {
                         if(totalPageCount){
                             if(!intPageLimit)
                                 intPageLimit =parseInt(totalPageCount);
-                            db.collection(config.SUBCATEGORY_COLLECTION).aggregate([{$match:query},
+                            db.collection(config.PRODUCT_COLLECTION).aggregate([{$match:query},
                                 { "$skip": intSkipCount }, { "$limit": intPageLimit },{$sort:{name:1}},
                                 lookupMainCategory,
                                 unwindarrayMainCategory,
+                                lookupMainsubCategory,
+                                unwindarrayMainsubCategory,
                                 Project
                             ]).toArray( (err,doc) => {
                                 if (err) throw err;
