@@ -3,10 +3,10 @@ module.exports = (app, db) => {
     const express = require('express');
     var ObjectID = require("mongodb").ObjectID;
     const router = express.Router();
-    const config = require('../config/config');
-    const common = require('../globel/common');
-    const COUNTRYMODELS = require('../models/country-model');
-    const COUNTRYREPORT  = require('../models/country-report');
+    const config = require('../../config/config');
+    const common = require('../../globel/common');
+    const COUNTRYMODELS = require('../../models/admin/country-model');
+    const COUNTRYREPORT  = require('../../models/admin/country-report');
     const arryEmpty =[];
 
 

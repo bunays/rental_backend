@@ -1,4 +1,4 @@
-const config = require('../config/config');
+const config = require('../../config/config');
 var strQryCount = { $group: { _id: null, count: { $sum: 1 }}};
 
 const express = require('express');
@@ -9,10 +9,9 @@ var arryEmpty = [];
 
 var upperCase = require('upper-case');
 
-
 module.exports = {
-    
-    funGetAllsubCategoryDetails:funGetAllsubCategoryDetails=(obj,db)=> {
+
+    funGetAllProductDetails:listProductDetails=(obj,db)=> {
         return new Promise((resolve, reject) => {
             try{
                 var arrayAllObjData =[];
@@ -41,27 +40,45 @@ module.exports = {
                     }
                 };
                 let unwindarrayMainCategory = {$unwind : "$arrayMainCategory"}
+
+                var lookupMainsubCategory = {
+                    $lookup: {
+                        from: config.SUBCATEGORY_COLLECTION,
+                        let: {intCatIds: "$fkIntsubCategoryId", strStatus: "N"},
+                        pipeline: [
+                            {$match: {$expr: {$and:
+                                            [
+                                                {$eq: ["$strStatus", "$$strStatus"]},
+                                                {$eq: ["$pkIntsubCategoryId", "$$intCatIds"]},
+                                            ]}}},
+                            { $project: {SubCategoryName: 1, pkIntsubCategoryId: 1, _id: 0} }
+                        ],
+                        as: "arrayMainsubCategory"
+                    }
+                };
+                let unwindarrayMainsubCategory = {$unwind : "$arrayMainsubCategory"}
                 var Project = { $project : {
         
                     _id:"$_id",
-                    pkIntCategoryId: "$pkIntCategoryId",
-                    SubCategoryName:"$SubCategoryName", 
-                    fkIntCategoryId:"$fkIntCategoryId", 
-                    icon_file_urls:"$icon_file_urls", 
-                    img_file_urls:"$img_file_urls", 
+                    pkIntProductId: "$pkIntProductId",
+                    ProductName:"$ProductName", 
+                    ProductId:"$ProductId", 
                     status:"$status", 
+                    "arrayMainCategory":"$arrayMainCategory",
                     "arrayMainSubCategory":"$arrayMainSubCategory"
                 }};
 
-                db.collection(config.SUBCATEGORY_COLLECTION).find(query).count()
+                db.collection(config.PRODUCT_COLLECTION).find(query).count()
                     .then((totalPageCount) => {
                         if(totalPageCount){
                             if(!intPageLimit)
                                 intPageLimit =parseInt(totalPageCount);
-                            db.collection(config.SUBCATEGORY_COLLECTION).aggregate([{$match:query},
+                            db.collection(config.PRODUCT_COLLECTION).aggregate([{$match:query},
                                 { "$skip": intSkipCount }, { "$limit": intPageLimit },{$sort:{name:1}},
                                 lookupMainCategory,
                                 unwindarrayMainCategory,
+                                lookupMainsubCategory,
+                                unwindarrayMainsubCategory,
                                 Project
                             ]).toArray( (err,doc) => {
                                 if (err) throw err;
@@ -81,6 +98,5 @@ module.exports = {
                 throw resolve( { success: false, message: 'System '+e, data: arryEmpty });
             }
         });
-    
     },
 }

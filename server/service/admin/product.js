@@ -5,10 +5,10 @@ module.exports = (app, db) => {
     const router = express.Router();
     /* const csv = require('fast-csv');
     const fs = require('fs');*/
-    const config = require('../config/config');
-    const common = require('../globel/common');
-    const PRODUCTMODELS = require('../models/product-model');
-    const PRODUCTREPORT  = require('../models/product-report');
+    const config = require('../../config/config');
+    const common = require('../../globel/common');
+    const PRODUCTMODELS = require('../../models/admin/product-model');
+    const PRODUCTREPORT  = require('../../models/admin/product-report');
     const arryEmpty =[];
 
 

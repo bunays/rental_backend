@@ -1,6 +1,6 @@
 
 
-const config = require('../config/config');
+const config = require('../../config/config');
 var strQryCount = { $group: { _id: null, count: { $sum: 1 }}};
 
 const express = require('express');

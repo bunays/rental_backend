@@ -1,14 +1,13 @@
-const bookingReport = require('../models/booking-report');
 
 module.exports = (app, db) => {
 
     const express = require('express');
     var ObjectID = require("mongodb").ObjectID;
     const router = express.Router();
-    const config = require('../config/config');
-    const common = require('../globel/common');
-    const BOOKINGMODEL = require('../models/booking-model');
-    const BOOKINGREPORT  = require('../models/booking-report');
+    const config = require('../../config/config');
+    const common = require('../../globel/common');
+    const BOOKINGMODEL = require('../../models/admin/booking-model');
+    const BOOKINGREPORT  = require('../../models/admin/booking-report');
     const arryEmpty =[];
 
 
@@ -46,8 +45,7 @@ module.exports = (app, db) => {
 
     });
 
-    
-      /*
+    /*
     TODO:This api use List booking details in Data Base
     @Function: Listing booking details Data
     */
