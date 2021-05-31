@@ -15,7 +15,7 @@ var upperCase = require('upper-case');
 
 module.exports = {
 
-    //This function validate details from country form.
+        //This function validate details from country form.
     funCountryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -62,7 +62,7 @@ module.exports = {
         });
     },
 
-    //This function save details from country form.
+        //This function insert details from country form.
     funSaveCountryDetails: funInsertCOUNTRYDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -90,7 +90,7 @@ module.exports = {
 
     },
 
-    //This function update details from country form.
+        //This function update details from country form.
     funUpdateCountryDetails: funUpdateCountryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
@@ -123,7 +123,7 @@ module.exports = {
 
     },
     
-    //This function delete validate details from country form.
+        //This function delete validate details from country form.
     funCountrydeleteValidateDetails: ValidateDetails = (strActionType, req, db) => {
         return new Promise((resolve, reject) => {
             var obj = req.body;
@@ -160,7 +160,7 @@ module.exports = {
         });
     },
 
-    //This function delete details from country form.
+        //This function delete details from country form.
     funDeleteCountry: funDeleteCountry = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

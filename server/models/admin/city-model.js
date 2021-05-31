@@ -74,7 +74,7 @@ module.exports = {
         });
     },
 
-        //This fucntion validate details from city form.
+        //This fucntion insert details from city form.
     funSaveCityDetails: funInsertCityDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

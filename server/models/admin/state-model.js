@@ -64,7 +64,7 @@ module.exports = {
         });
     },
 
-        //This fucntion save details from state form.
+        //This fucntion insert details from state form.
     funSaveStateDetails: funInsertStateDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {

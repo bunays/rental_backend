@@ -14,9 +14,6 @@ module.exports = {
 
         //This function validate details from booking form.
     funValidatebookingDetails: ValidateDetails = (strActionType, req, db) => {
-        console.log("enter into funUserValidateDetails ",req.body)
-   
-   
         return new Promise((resolve, reject) => {
              var obj = req.body;
              try {
@@ -81,7 +78,7 @@ module.exports = {
         });
     },
    
-        //This function validate details from booking form.
+        //This function insert details from booking form.
     funSavebookingDetails: funInsertBookingDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
