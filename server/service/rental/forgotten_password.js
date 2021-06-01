@@ -7,7 +7,7 @@ module.exports = (app, db) => {
     const fs = require('fs');*/
     const config = require('../../config/config');
     const common = require('../../globel/common');
-    const FORGOTTEN_PASSWORDMODELS = require('../../models/admin/forgotten_password-model');
+    const FORGOTTEN_PASSWORDMODELS = require('../../models/rental/forgotten_password-model');
     const arryEmpty =[];
 
    
