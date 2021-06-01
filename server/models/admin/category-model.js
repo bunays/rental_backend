@@ -23,34 +23,18 @@ module.exports = {
                
                 let CategoryName= obj.CategoryName;
                 let CategoryColor = obj.CategoryColor;
-                let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCategoryId = obj.pkIntCategoryId;
-                let parentid=obj.intParentId;
          
                 CategoryName = (CategoryName && typeof CategoryName === 'string') ? CategoryName.trim() : null;
                 CategoryColor = (CategoryColor && typeof CategoryColor === 'string') ? CategoryColor.trim() : null;
-                fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntCategoryId = (pkIntCategoryId && typeof pkIntCategoryId === 'string')? ObjectID( pkIntCategoryId.trim()) : null;
 
                 if (pkIntCategoryId || strActionType === 'SAVE') {
                     if (CategoryName) {
                         if (CategoryColor) {
-                            if (fkIntLoginUserId) {
-                                var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
-                                db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                                    if(response.length){
-                                        resolve({
-                                            success: true,
-                                            message: 'Pass validate',
-                                            data: arryEmpty
-                                        });
-                                    }else{
-                                        resolve({success: false, message: ' User not found', data: arryEmpty});
-                                    }        
-                                });
-                            } else {
-                                resolve({success: false, message: ' Invalid User', data: arryEmpty});
-                            }
+                          
+                            resolve({success: true, message: 'Pass validate', data: arryEmpty });
+            
                         } else {
                             resolve({success: false, message: 'Category  color is  not found', data: arryEmpty});
                         }
@@ -80,10 +64,8 @@ module.exports = {
                     icon_file_urls: obj.icon_file_urls,
                     img_file_urls: obj.img_file_urls,
                     status: obj.status,
-                    fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime: null,
-                    fkIntLastModifiedId: null,
                     strStatus: 'N',
                    
                 };
@@ -112,7 +94,6 @@ module.exports = {
             try {
                   
                 let IntCategoryId = obj.pkIntCategoryId;
-                let fkIntLoginUserId = obj.intLoginUserId;
 
                 var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
                 db.collection(config.CATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
@@ -123,7 +104,6 @@ module.exports = {
                             icon_file_urls: obj.icon_file_urls,
                             img_file_urls: obj.img_file_urls,
                             status: obj.status,
-                            fkIntLastModifiedId: ObjectID(fkIntLoginUserId),
                             datLastModifiedDateTime: new Date(),
                            
                         };
@@ -154,29 +134,14 @@ module.exports = {
             var obj = req.body;
             try {
                
-                let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCategoryId = obj.IntCategoryId;
 
-                fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntCategoryId = (pkIntCategoryId && typeof pkIntCategoryId === 'string')? ObjectID( pkIntCategoryId.trim()) : null;
 
                 if (pkIntCategoryId || strActionType === 'SAVE') {
-                    if (fkIntLoginUserId) {
-                        var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
-                        db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                            if(response.length){
-                                resolve({
-                                    success: true,
-                                    message: 'Pass validate',
-                                    data: arryEmpty
-                                });
-                            }else{
-                                resolve({success: false, message: ' User not found', data: arryEmpty});
-                            }
-                        });
-                    } else {
-                    resolve({success: false, message: ' Invalid User', data: arryEmpty});
-                    }
+
+                    resolve({success: true, message: 'Pass validate', data: arryEmpty });
+
                 } else {
                 resolve({success: false, message: 'Categoryid  name is  not found', data: arryEmpty});
                 }
@@ -194,7 +159,6 @@ module.exports = {
             try {
               
                 let IntCategoryId = obj.IntCategoryId;
-                let fkIntLoginUserId = obj.intLoginUserId;
 
                 var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
                 db.collection(config.CATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
@@ -202,7 +166,6 @@ module.exports = {
                         const newObject = {
                            
                             datLastModifiedDateTime: new Date(),
-                            fkIntLastModifiedId: ObjectID(fkIntLoginUserId),
                             strStatus: 'D',
                         };
                         var query = {pkIntCategoryId: ObjectID(IntCategoryId)};

@@ -17,7 +17,6 @@ module.exports = {
     funRegisterUserDetails: InsertUserDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
-                // let newObject = {}
     
                 db.collection(config.USER_COLLECTION).findOne({email:obj.email}).then(user=>{
                     if(user){

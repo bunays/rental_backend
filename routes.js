@@ -15,9 +15,6 @@ module.exports = function(app, db) {
     require('./server/service/rental/product')(app, db);
     require('./server/service/rental/booking')(app, db);
 
-
     require('./server/service/upload/upload')(app, db);
-
-
 
 };

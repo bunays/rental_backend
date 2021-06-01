@@ -28,6 +28,8 @@ CONNECTION_URL: "mongodb+srv://jam:jam@123@cluster0-p9jn3.mongodb.net/test?retry
     CITY_COLLECTION:'cln_city',
     STATE_COLLECTION:'cln_state',
 
+    SUBSCRIPTION_COLLECTION :'cln_subscription',
+
     JWT_SECRET: 'p04$&S()*2'
 
     

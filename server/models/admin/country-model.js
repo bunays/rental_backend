@@ -23,32 +23,17 @@ module.exports = {
             try {
                
                 let CountryName = obj.CountryName;
-                let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCountryId = obj.pkIntCountryId;
                 let parentid=obj.intParentId;
          
                 CountryName = (CountryName && typeof CountryName === 'string') ? CountryName.trim() : null;
-                fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
                 pkIntCountryId = (pkIntCountryId && typeof pkIntCountryId === 'string')? ObjectID( pkIntCountryId.trim()) : null;
                 
                 if (pkIntCountryId || strActionType === 'SAVE') {
                     if (CountryName) {
-                        if (fkIntLoginUserId) {
-                            var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
-                            db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                                if(response.length){
-                                    resolve({
-                                        success: true,
-                                        message: 'Pass validate',
-                                        data: arryEmpty
-                                        });
-                                }else{
-                                    resolve({success: false, message: ' User not found', data: arryEmpty});
-                                }    
-                            });
-                        } else {
-                            resolve({success: false, message: ' Invalid Country User', data: arryEmpty});
-                        }
+                      
+                        resolve({ success: true, message: 'Pass validate',data: arryEmpty });
+                            
                     } else {
                         resolve({success: false, message: 'Country  name is  not found', data: arryEmpty});
                     }
@@ -73,7 +58,6 @@ module.exports = {
                     fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime:null,
-                    fkIntLastModifiedId: null,
                     strStatus: "N" ,
 
                 };
@@ -103,7 +87,6 @@ module.exports = {
                         const newObject = {
                            CountryName:upperCase(obj.CountryName),
                            datLastModifiedDateTime : new Date(),
-                           fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                         };
                         var query = {pkIntCountryId: ObjectID(IntCountryId)};
                         db.collection(config.COUNTRY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
@@ -129,28 +112,14 @@ module.exports = {
             var obj = req.body;
             try {
                            
-                let pkIntCountryId = obj.IntCountryId;  
-                let  fkIntLoginUserId = obj.intLoginUserId;                                    
+                let pkIntCountryId = obj.IntCountryId;                                   
             
                 pkIntCountryId = (pkIntCountryId && typeof pkIntCountryId === 'string')? ObjectID( pkIntCountryId.trim()) : null;
               
                 if (pkIntCountryId || strActionType === 'SAVE') {   
-                    if (fkIntLoginUserId) {
-                        var match = {$match: {pkIntUserId:ObjectID(fkIntLoginUserId)}};
-                        db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
-                            if(response.length){
-                                resolve({
-                                    success: true,
-                                    message: 'Pass validate',
-                                    data: arryEmpty
-                                });
-                            }else{
-                                resolve({success: false, message: ' User not found', data: arryEmpty});
-                            }                        
-                        }); 
-                    } else {
-                        resolve({success: false, message: 'User  ID is  not found', data: arryEmpty});
-                    }  
+                  
+                    resolve({ success: true,  message: 'Pass validate', data: arryEmpty  });
+                          
                 } else {
                 resolve({success: false, message: 'pkIntCountryId  ID is  not found', data: arryEmpty});
                 }
@@ -173,7 +142,6 @@ module.exports = {
                     if (response.length) {
                         const newObject = {
                             datLastModifiedDateTime : new Date(),
-                            fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                             strStatus: 'D',
                         };
                         var query = {pkIntCountryId: ObjectID(IntCountryId)};

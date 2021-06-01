@@ -85,6 +85,8 @@ module.exports = {
                 
                 const newObject = {
                     pkIntBookingId: ObjectID(),
+                    amount:obj.amount,
+                    duration:obj.duration,
                     // intqty:parseFloat(obj.intQuantity),
                     // intdblMRP : parseFloat(obj.intdblMRP),
                     fkIntProductId :  ObjectID(obj.fkIntProductId),
