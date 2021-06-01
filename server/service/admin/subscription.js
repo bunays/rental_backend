@@ -13,10 +13,10 @@ module.exports = (app, db) => {
 
 
     /*
-    TODO:This api use Save Subscription details in Data Base
-    @Function: Save Subscription details Data
+    TODO:This api use Save SubscriptionPlan details in Data Base
+    @Function: Save SubscriptionPlan details Data
     */
-    app.post('/api/Subscription/SavenewSubscription', (req,res) =>{   
+    app.post('/api/SubscriptionPlan/SavenewSubscriptionPlan', (req,res) =>{   
         try{
             var obj = req.body;
             var strActionType ="SAVE";
@@ -24,9 +24,9 @@ module.exports = (app, db) => {
             {
                 res.status(500).json({success: false, message: 'Params missing', data:arryEmpty});
             } else {
-                SUBSCRIPTIONMODEL.funSubscriptionValidateDetails(strActionType,req,db).then(( result )=>{
+                SUBSCRIPTIONMODEL.funSubscriptionPlanValidateDetails(strActionType,req,db).then(( result )=>{
                     if(result && result.success === true) {
-                        SUBSCRIPTIONMODEL.funSubscriptionDetails(obj,db).then(( result )=>{
+                        SUBSCRIPTIONMODEL.funSubscriptionPlanDetails(obj,db).then(( result )=>{
                             if(result && result.success === true) {
                                 res.status(200).json(result)
                             } else {

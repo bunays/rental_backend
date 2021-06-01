@@ -13,25 +13,25 @@ var upperCase = require('upper-case');
 module.exports = {
 
            //This fucntion validate details from Subscription form.
-        funSubscriptionValidateDetails: ValidateDetails = (strActionType, req, db) => {
+        funSubscriptionPlanValidateDetails: ValidateDetails = (strActionType, req, db) => {
             return new Promise((resolve, reject) => {
                 var obj = req.body;
     
                 try {
 
-                    let pkIntSubscriptionId = obj.pkIntSubscriptionId;
+                    let pkIntSubscriptionPlanId = obj.pkIntSubscriptionPlanId;
                     let PlanName = obj.PlanName;
                     let Period  = obj.Period ;
                     let Price   = obj.Price  ;
                     let CurrencyType = obj.CurrencyType;
           
-                    pkIntSubscriptionId = (pkIntSubscriptionId && typeof pkIntSubscriptionId === 'string') ? ObjectID(pkIntSubscriptionId.trim()) : null;
+                    pkIntSubscriptionPlanId = (pkIntSubscriptionPlanId && typeof pkIntSubscriptionPlanId === 'string') ? ObjectID(pkIntSubscriptionPlanId.trim()) : null;
                     PlanName = (PlanName && typeof PlanName === 'string') ? PlanName.trim() : null;
                     Period = (Period && typeof Period === 'string') ? Period.trim() : null;
                     Price = (Price && typeof Price === 'string') ? Price.trim() : null;
                     CurrencyType = (CurrencyType && typeof CurrencyType === 'string') ? CurrencyType.trim() : null;
                 
-                    if (pkIntSubscriptionId || strActionType === 'SAVE') {
+                    if (pkIntSubscriptionPlanId || strActionType === 'SAVE') {
                         if (PlanName) {
                             if (Period) {
                                 if (Price) {
@@ -52,7 +52,7 @@ module.exports = {
                             resolve({success: false, message: 'Plan Name is  not found', data: arryEmpty});
                         }   
                     } else {
-                        resolve({success: false, message: 'pkIntSubscriptionId is  not found', data: arryEmpty});
+                        resolve({success: false, message: 'pkIntSubscriptionPlanId is  not found', data: arryEmpty});
                     }
                     
                 } catch (e) {
@@ -63,12 +63,12 @@ module.exports = {
         },
     
             //This fucntion insert details from Subscription form.
-        funSubscriptionDetails: InsertSubscriptionDetails = (obj, db) => {
+        funSubscriptionPlanDetails: InsertSubscriptionDetails = (obj, db) => {
             return new Promise((resolve, reject) => {
                 try {
 
                     const newObject = {
-                        pkIntSubscriptionId:ObjectID(),
+                        pkIntSubscriptionPlanId:ObjectID(),
                         PlanName: obj.PlanName,
                         Period: obj.Period,
                         Price: obj.Price,
