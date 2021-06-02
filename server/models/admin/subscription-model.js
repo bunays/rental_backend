@@ -24,21 +24,27 @@ module.exports = {
                     let Period  = obj.Period ;
                     let Price   = obj.Price  ;
                     let CurrencyType = obj.CurrencyType;
+                    let NoOfproducts = obj.NoOfproducts;
           
                     pkIntSubscriptionPlanId = (pkIntSubscriptionPlanId && typeof pkIntSubscriptionPlanId === 'string') ? ObjectID(pkIntSubscriptionPlanId.trim()) : null;
                     PlanName = (PlanName && typeof PlanName === 'string') ? PlanName.trim() : null;
                     Period = (Period && typeof Period === 'string') ? Period.trim() : null;
                     Price = (Price && typeof Price === 'string') ? Price.trim() : null;
                     CurrencyType = (CurrencyType && typeof CurrencyType === 'string') ? CurrencyType.trim() : null;
+                    NoOfproducts = (NoOfproducts && typeof NoOfproducts === 'string') ? NoOfproducts.trim() : null;
                 
                     if (pkIntSubscriptionPlanId || strActionType === 'SAVE') {
                         if (PlanName) {
                             if (Period) {
                                 if (Price) {
                                     if (CurrencyType) {
+                                        if (NoOfproducts) {
                         
-                                        resolve({ success: true,   message: 'Pass validate', data: arryEmpty });
+                                            resolve({ success: true,   message: 'Pass validate', data: arryEmpty });
 
+                                        }else{
+                                            resolve({success: false, message: 'NoOfproducts not found', data: arryEmpty});
+                                        }
                                     }else{
                                         resolve({success: false, message: ' CurrencyType not found', data: arryEmpty});
                                     }
@@ -73,6 +79,7 @@ module.exports = {
                         Period: obj.Period,
                         Price: obj.Price,
                         CurrencyType: obj.CurrencyType,
+                        NoOfproducts: obj.NoOfproducts,
                         datCreateDateAndTime: new Date(),
                         datLastModifiedDateTime: null,
                         strStatus: 'N',

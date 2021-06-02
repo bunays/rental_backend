@@ -14,6 +14,7 @@ module.exports = function(app, db) {
     require('./server/service/rental/forgotten_password')(app, db);
     require('./server/service/rental/product')(app, db);
     require('./server/service/rental/booking')(app, db);
+    require('./server/service/rental/user')(app, db);
 
     require('./server/service/upload/upload')(app, db);
 
