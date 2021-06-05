@@ -13,12 +13,12 @@ const randomstring =require('randomstring')
 
 module.exports = {
 
-    //This fucntion register user details from user form.
+        //This fucntion register admin details from user form.
     funRegisterUserDetails: InsertUserDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
             try {
     
-                db.collection(config.USER_COLLECTION).findOne({email:obj.email}).then(user=>{
+                db.collection(config.ADMIN_USER_COLLECTION).findOne({email:obj.email}).then(user=>{
                     if(user){
                         resolve({ success: false, message: 'Email already exists',data:[] });
                     }else{
@@ -33,7 +33,7 @@ module.exports = {
                             datLastModifiedDateTime: null,
                             strStatus: 'N',
                         };
-                        db.collection(config.USER_COLLECTION).insertOne(newObject, (err, doc) => {
+                        db.collection(config.ADMIN_USER_COLLECTION).insertOne(newObject, (err, doc) => {
                             if (err)resolve({success: false, message: 'user Creation Failed.', data: arryEmpty});
                                 
                             else if(doc && doc.ops && doc.ops.length) {
@@ -90,11 +90,11 @@ module.exports = {
         });
     },
 
-    //This fucntion login user details from user form.
+        //This fucntion login admin details from user form.
     funCheckUserNameAndPassword:funCheckUserNameAndPassword=(obj,db)=> {
         return new Promise((resolve, reject) => {
             try {
-                db.collection(config.USER_COLLECTION).findOne({email: obj.email}, (err, doc) => {
+                db.collection(config.ADMIN_USER_COLLECTION).findOne({email: obj.email}, (err, doc) => {
                     if (err) throw err;
                     if (!doc) {
                         resolve({success: false, message: 'The email address is invalid', data: arryEmpty});
@@ -102,7 +102,7 @@ module.exports = {
                         var objLoginpassword = common.validPassword(obj.password, doc);
                
                         if (objLoginpassword) {
-                            db.collection(config.USER_COLLECTION).aggregate([
+                            db.collection(config.ADMIN_USER_COLLECTION).aggregate([
                                 {$match: {$and: [{password: objLoginpassword.hash}, {email: obj.email}]}}
 
                             ]).toArray((err, doc1) => {

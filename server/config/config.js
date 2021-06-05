@@ -17,6 +17,7 @@ CONNECTION_URL: "mongodb+srv://jam:jam@123@cluster0-p9jn3.mongodb.net/test?retry
 
     USER_DEVICES_COLLECTION:'cln_user_devices',
     USER_COLLECTION : 'cln_user',
+    ADMIN_USER_COLLECTION : 'cln_admin_user',
 
     CATEGORY_COLLECTION : 'cln_category',
     SUBCATEGORY_COLLECTION : 'cln_subcategory',

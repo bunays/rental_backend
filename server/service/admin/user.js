@@ -12,8 +12,8 @@ module.exports = (app, db) => {
     const arryEmpty =[];
 
     /*
-    TODO:This api use Save User details in Data Base
-    @Function: Save user details Data
+    TODO:This api use Save admin details in Data Base
+    @Function: Save admin details Data
     */
     app.post('/api/auth/signup', (req,res) =>  { 
         try{
@@ -39,8 +39,8 @@ module.exports = (app, db) => {
     });
 
     /*
-    TODO:This api use User Login details in Data Base
-    @Function: Login user details Data
+    TODO:This api use admin Login details in Data Base
+    @Function: Login admin details Data
     */
     app.post('/api/auth/login', (req,res) =>  { 
         try{
@@ -64,6 +64,34 @@ module.exports = (app, db) => {
             res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
         }
  
-     });
+    });
+
+    /*
+    TODO:This api use List user details in Data Base
+    @Function: Listing user details Data
+    */
+    app.post('/api/user/getListAllUserDetails',(req,res) => {
+        try{
+            var obj = req.body
+            if(!obj){
+                res.json({success: false, message: 'Params missing',data:arryEmpty});
+            } else {
+                USERREPORT.funGetAllUserDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+
+    });
+
  
 }
