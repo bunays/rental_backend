@@ -25,11 +25,11 @@ module.exports = {
                 if(obj.intPageLimit)
                     intPageLimit = parseInt(obj.intPageLimit);
     
-                var Project = { $project : {
-                    _id:"$_id",
-                    pkIntCategoryId: "$pkIntCategoryId",
-                    CategoryName:"$CategoryName", 
-                }};
+                // var Project = { $project : {
+                //     _id:"$_id",
+                //     pkIntCategoryId: "$pkIntCategoryId",
+                //     CategoryName:"$CategoryName", 
+                // }};
 
                 db.collection(config.CATEGORY_COLLECTION).find(query).count()
                     .then((totalPageCount) => {
@@ -38,7 +38,7 @@ module.exports = {
                                 intPageLimit =parseInt(totalPageCount);
                             db.collection(config.CATEGORY_COLLECTION).aggregate([{$match:query},
                                 { "$skip": intSkipCount }, { "$limit": intPageLimit },{$sort:{name:1}},
-                                Project
+                                // Project
                             ]).toArray( (err,doc) => {
                                 if (err) throw err;
                                 if(doc){

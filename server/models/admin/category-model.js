@@ -128,6 +128,43 @@ module.exports = {
 
     },
 
+        //This function update details from category status form.
+    funUpdateCategoryStatusDetails: funUpdateCategoryStatusDetails = (obj, db) => {
+        return new Promise((resolve, reject) => {
+            try {
+                  
+                let IntCategoryId = obj.IntCategoryId;
+
+                var match = {$match: {pkIntCategoryId: ObjectID(IntCategoryId)}};
+                db.collection(config.CATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                    if (response.length) {
+                        const newObject = {
+                           
+                            status: obj.status,
+                            datLastModifiedDateTime: new Date(),
+                           
+                        };
+                        var query = {pkIntCategoryId: ObjectID(IntCategoryId)};
+                        db.collection(config.CATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
+                            if (err) resolve({success: false, message: 'Category Update Failed.', data: arryEmpty});
+                            else{
+                                resolve({success: true, message: 'User saved successfully.', data: [doc]});
+                            }
+
+                        })
+
+                    } else {
+                        resolve({success: false, message: 'No category found', data: arryEmpty});
+                    }
+                });
+       
+            } catch (e) {
+                throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
+            }
+        });
+
+    },
+    
         //This function delete validate details from category form.
     fundeleteCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
