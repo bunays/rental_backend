@@ -44,13 +44,13 @@ module.exports = {
                 var Project = { $project : {
         
                     _id:"$_id",
-                    pkIntCategoryId: "$pkIntCategoryId",
+                    pkIntsubCategoryId: "$pkIntsubCategoryId",
                     SubCategoryName:"$SubCategoryName", 
                     fkIntCategoryId:"$fkIntCategoryId", 
                     icon_file_urls:"$icon_file_urls", 
                     img_file_urls:"$img_file_urls", 
                     status:"$status", 
-                    "arrayMainSubCategory":"$arrayMainSubCategory"
+                    "arrayMainCategory":"$arrayMainCategory"
                 }};
 
                 db.collection(config.SUBCATEGORY_COLLECTION).find(query).count()
