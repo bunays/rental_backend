@@ -18,7 +18,6 @@ module.exports = {
     funCategoryValidateDetails: ValidateDetails = (strActionType, req, db) => { 
         return new Promise((resolve, reject) => {
             var obj = req.body;
-
             try {
                
                 let CategoryName= obj.CategoryName;
@@ -148,7 +147,7 @@ module.exports = {
                         db.collection(config.CATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
                             if (err) resolve({success: false, message: 'Category Update Failed.', data: arryEmpty});
                             else{
-                                resolve({success: true, message: 'User saved successfully.', data: [doc]});
+                                resolve({success: true, message: 'Status changed successfully.', data: [doc]});
                             }
 
                         })

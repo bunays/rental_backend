@@ -81,6 +81,41 @@ module.exports = {
 
     },
 
+        //This function update details from subcategory status form.
+    funUpdateSubCategoryStatusDetails: funUpdateSubCategoryStatusDetails = (obj, db) => {
+        return new Promise((resolve, reject) => {
+            try {
+                  
+                let IntsubCategoryId = obj.IntsubCategoryId;
+
+                var match = {$match: {pkIntsubCategoryId: ObjectID(IntsubCategoryId)}};
+                db.collection(config.SUBCATEGORY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                    if (response.length) {
+                        const newObject = {
+                            status: obj.status,
+                            datLastModifiedDateTime: new Date(),
+                        };
+                        var query = {pkIntsubCategoryId: ObjectID(IntsubCategoryId)};
+                        db.collection(config.SUBCATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
+                            if (err) resolve({success: false, message: 'subCategory Update Failed.', data: arryEmpty});
+                            else{
+                                resolve({success: true, message: 'Status changed successfully.', data: [doc]});
+                            }
+
+                        })
+
+                    } else {
+                        resolve({success: false, message: 'No category found', data: arryEmpty});
+                    }
+                });
+       
+            } catch (e) {
+                throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
+            }
+        });
+
+    },
+
         //This fucntion update details from subcategory form.
     funUpdatesubCategoryDetails: funUpdatesubCategoryDetails = (obj, db) => {
         return new Promise((resolve, reject) => {
@@ -101,15 +136,15 @@ module.exports = {
                         };
                         var query = {pkIntsubCategoryId: ObjectID(IntsubCategoryId)};
                         db.collection(config.SUBCATEGORY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
-                            if (err) resolve({success: false, message: 'Category Update Failed.', data: arryEmpty});
+                            if (err) resolve({success: false, message: 'Subcategory Update Failed.', data: arryEmpty});
                             else{
-                                resolve({success: true, message: 'User saved successfully.', data: [doc]});
+                                resolve({success: true, message: 'Subcategory saved successfully.', data: [doc]});
                             }
 
                         })
 
                     } else {
-                        resolve({success: false, message: 'No category found', data: arryEmpty});
+                        resolve({success: false, message: 'No Subcategory found', data: arryEmpty});
                     }
                 });
        
