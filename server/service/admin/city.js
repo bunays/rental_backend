@@ -43,6 +43,35 @@ module.exports = (app, db) => {
 
     });
 
+     /*
+    TODO:This api use Update City Status details in Data Base
+    @Function: Update City details Data
+    */
+    app.post('/api/city/UpdateCityStatusDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+              
+                CITYMODELS.funUpdateCityStatusDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+                   
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+
     /*
     TODO:This api use Update City details in Data Base
     @Function: Update user details Data

@@ -27,22 +27,22 @@ module.exports = {
             try {
                
                 let CityName= obj.CityName;
-                let fkIntLoginUserId = obj.intLoginUserId;
+                // let fkIntLoginUserId = obj.intLoginUserId;
                 let pkIntCityId = obj.pkIntCityId;
-                let fkIntStateId = obj.fkIntStateId;
-                let parentid=obj.intParentId;
+                // let fkIntStateId = obj.fkIntStateId;
+                // let parentid=obj.intParentId;
          
                 CityName = (CityName && typeof CityName === 'string') ? CityName.trim() : null;
-                fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
-                fkIntStateId = (fkIntStateId && typeof fkIntStateId === 'string')? ObjectID( fkIntStateId.trim()) : null;
+                // fkIntLoginUserId = (fkIntLoginUserId && typeof fkIntLoginUserId === 'string')? ObjectID(fkIntLoginUserId.trim()) : null;
+                // fkIntStateId = (fkIntStateId && typeof fkIntStateId === 'string')? ObjectID( fkIntStateId.trim()) : null;
                 pkIntCityId = (pkIntCityId && typeof pkIntCityId === 'string')? ObjectID( pkIntCityId.trim()) : null;
                 
                 if (pkIntCityId || strActionType === 'SAVE') {
                     if (CityName) {
-                        if (fkIntStateId) {
-                            if (fkIntLoginUserId) {
-                                var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
-                                db.collection(config.USERS_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                        // if (fkIntStateId) {
+                        //     if (fkIntLoginUserId) {
+                        //         var match = {$match: {_id:ObjectID(fkIntLoginUserId)}};
+                                db.collection(config.USER_COLLECTION).aggregate([ strQryCount]).toArray().then((response) => {
                                 if(response.length){
                                     resolve({
                                     success: true,
@@ -53,12 +53,12 @@ module.exports = {
                                 resolve({success: false, message: ' User not found', data: arryEmpty});
                                 }
                             });
-                            } else {
-                                resolve({success: false, message: ' Invalid City User', data: arryEmpty});
-                            }
-                        } else {
-                            resolve({success: false, message: 'State  Id is  not found', data: arryEmpty});
-                        }
+                        //     } else {
+                        //         resolve({success: false, message: ' Invalid City User', data: arryEmpty});
+                        //     }
+                        // } else {
+                        //     resolve({success: false, message: 'State  Id is  not found', data: arryEmpty});
+                        // }
                            
                     } else {
                         resolve({success: false, message: 'City   name  not found', data: arryEmpty});
@@ -83,9 +83,10 @@ module.exports = {
                     
                     pkIntCityId:ObjectID(),
                     CityName: upperCase(obj.CityName),
-                    fkIntCountryId: ObjectID(obj.fkIntCountryId),
-                    fkIntStateId: ObjectID(obj.fkIntStateId),
-                    fkIntCreateUserId: ObjectID(obj.intLoginUserId),
+                    status: obj.status,
+                    // fkIntCountryId: ObjectID(obj.fkIntCountryId),
+                    // fkIntStateId: ObjectID(obj.fkIntStateId),
+                    // fkIntCreateUserId: ObjectID(obj.intLoginUserId),
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime :null,
                     fkIntLastModifiedId: null,
@@ -113,6 +114,44 @@ module.exports = {
         });
 
     },
+
+        //This function update details from city status form.
+    funUpdateCityStatusDetails: funUpdateCityStatusDetails = (obj, db) => {
+        return new Promise((resolve, reject) => {
+            try {
+                  
+                let IntCityId = obj.IntCityId;
+
+                var match = {$match: {pkIntCityId: ObjectID(IntCityId)}};
+                db.collection(config.CITY_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                    if (response.length) {
+                        const newObject = {
+                           
+                            status: obj.status,
+                            datLastModifiedDateTime: new Date(),
+                           
+                        };
+                        var query = {pkIntCityId: ObjectID(IntCityId)};
+                        db.collection(config.CITY_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
+                            if (err) resolve({success: false, message: 'City Update Failed.', data: arryEmpty});
+                            else{
+                                resolve({success: true, message: 'Status changed successfully.', data: [doc]});
+                            }
+
+                        })
+
+                    } else {
+                        resolve({success: false, message: 'No category found', data: arryEmpty});
+                    }
+                });
+       
+            } catch (e) {
+                throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
+            }
+        });
+
+    },
+    
     
         //This fucntion validate details from city form.
     funUpdateCityDetails: funUpdateCityDetails = (obj, db) => {
@@ -126,10 +165,10 @@ module.exports = {
                     if (response.length) {
                         const newObject = {
                            CityName:upperCase(obj.CityName),
-                           fkIntCountryId: ObjectID(obj.fkIntCountryId),
-                           fkIntStateId:ObjectID(obj.fkIntStateId),
+                        //    fkIntCountryId: ObjectID(obj.fkIntCountryId),
+                        //    fkIntStateId:ObjectID(obj.fkIntStateId),
                            datLastModifiedDateTime : new Date(),
-                           fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
+                        //    fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                            
                         };
                         var query = {pkIntCityId: ObjectID(IntCityId)};
@@ -204,7 +243,7 @@ module.exports = {
                         const newObject = {
                            
                             datLastModifiedDateTime : new Date(),
-                            fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
+                            // fkIntLastModifiedId :ObjectID(obj.fkIntLoginUserId),
                             strStatus: 'D',
                         };
                         var query = {pkIntCityId: ObjectID(IntCityId)};

@@ -10,6 +10,7 @@ module.exports = function(app, db) {
     require('./server/service/admin/city')(app, db);
     require('./server/service/admin/product')(app, db);
     require('./server/service/admin/booking')(app, db);
+    require('./server/service/admin/subscription')(app, db);
 
     require('./server/service/rental/forgotten_password')(app, db);
     require('./server/service/rental/product')(app, db);
