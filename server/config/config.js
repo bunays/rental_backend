@@ -21,6 +21,7 @@ CONNECTION_URL: "mongodb+srv://jam:jam@123@cluster0-p9jn3.mongodb.net/test?retry
 
     CATEGORY_COLLECTION : 'cln_category',
     SUBCATEGORY_COLLECTION : 'cln_subcategory',
+    SETTING_COLLECTION :'settings',
 
     PRODUCT_COLLECTION:'cln_product',
     BOOKING_COLLECTION:'cln_booking',
