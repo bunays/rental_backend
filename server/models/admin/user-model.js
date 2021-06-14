@@ -28,6 +28,7 @@ module.exports = {
                             pkIntUserId : ObjectID(),
                             email : obj.email.toLowerCase(),
                             password : passObj.hash,
+                            status: "Active",
                             strPrePassword: passObj.salt,
                             datCreateDateAndTime: new Date(),
                             datLastModifiedDateTime: null,
@@ -154,6 +155,77 @@ module.exports = {
 
       
     },
-    
 
+        //This fucntion update details from user status form.
+    funUpdateStatusUserDetails: UpdateStatusUserDetails = (obj, db) => {
+        return new Promise((resolve, reject) => {
+            try {
+                    
+                let UserId = obj.IntUserId;
+
+                var match = {$match: {pkIntUserId: ObjectID(UserId)}};
+                db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                    if (response.length) {
+                        const newObject = {
+                            status: obj.status,
+                            datLastModifiedDateTime: new Date(),
+                        };
+                        var query = {pkIntUserId: ObjectID(UserId)};
+                        db.collection(config.USER_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
+                            if (err) resolve({success: false, message: 'User status Update Failed.', data: arryEmpty});
+                            else{
+                                resolve({success: true, message: 'User status Update successfully.', data: [doc]});
+                            }
+                        })
+
+                    } else {
+                        resolve({success: false, message: 'No User found', data: arryEmpty});
+                    }
+                });
+        
+            } catch (e) {
+                throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
+            }
+        });
+
+    },
+
+        //This fucntion update details from user form.
+        funUpdateUserDetails: UpdateUserDetails = (obj, db) => {
+            return new Promise((resolve, reject) => {
+                try {
+                      
+                    let UserId = obj.IntUserId;
+    
+                    var match = {$match: {pkIntUserId: ObjectID(UserId)}};
+                    db.collection(config.USER_COLLECTION).aggregate([match, strQryCount]).toArray().then((response) => {
+                        if (response.length) {
+                            const newObject = {
+                                name : obj.name,
+                                mobile : obj.mobile,
+                                email :obj.email,
+                                status: obj.status,
+                                datLastModifiedDateTime: new Date(),
+                            };
+                            var query = {pkIntUserId: ObjectID(UserId)};
+                            db.collection(config.USER_COLLECTION).update(query, {$set: newObject}, (err, doc) => {
+                                if (err) resolve({success: false, message: 'User Update Failed.', data: arryEmpty});
+                                else{
+                                    resolve({success: true, message: 'User Update successfully.', data: [doc]});
+                                }
+                            })
+    
+                        } else {
+                            resolve({success: false, message: 'No User found', data: arryEmpty});
+                        }
+                    });
+           
+                } catch (e) {
+                    throw resolve({success: false, message: 'System ' + e, data: arryEmpty});
+                }
+            });
+    
+        },
+    
+    
 }

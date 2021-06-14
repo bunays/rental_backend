@@ -66,6 +66,34 @@ module.exports = (app, db) => {
  
     });
 
+     /*
+    TODO:This api used to update user status details in  Data Base
+    @Function: update user status details Data
+    */    
+    app.post('/api/user/UpdateStatusUserDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                USERMODELS.funUpdateStatusUserDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+
+
     /*
     TODO:This api use List user details in Data Base
     @Function: Listing user details Data
@@ -92,6 +120,34 @@ module.exports = (app, db) => {
 
 
     });
+
+    /*
+    TODO:This api used to update user details in  Data Base
+    @Function: update user details Data
+    */    
+    app.post('/api/admin/UpdateUserDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                USERMODELS.funUpdateUserDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+ 
 
  
 }

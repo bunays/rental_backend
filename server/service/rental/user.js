@@ -7,8 +7,8 @@ module.exports = (app, db) => {
     const fs = require('fs');*/
     const config = require('../../config/config');
     const common = require('../../globel/common');
-    const USERMODELS = require('../../models/admin/user-model');
-    const USERREPORT  = require('../../models/admin/user-report');
+    const USERMODELS = require('../../models/rental/user-model');
+    const USERREPORT  = require('../../models/rental/user-report');
     const arryEmpty =[];
 
     /*
@@ -64,6 +64,34 @@ module.exports = (app, db) => {
             res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
         }
  
-     });
+    });
+
+    /*
+    TODO:This api used to update user details in  Data Base
+    @Function: update user details Data
+    */    
+    app.post('/api/user/UpdateUserDetails', (req,res) => {
+        try{
+            var obj = req.body;
+            var strActionType ="UPDATE";
+            if(!obj) {
+                res.json({success: false, message: 'Parameter missing',data:arryEmpty});
+            } else {
+                USERMODELS.funUpdateUserDetails(obj,db).then(( result )=>{
+                    if(result && result.success === true) {
+                        res.status(200).json(result)
+                    }
+                    else {
+                        res.status(200).json(result)
+                    }
+                });
+            }
+        }catch (e) {
+            console.log("Error",e);
+            res.status(500).json({success: false, message: "Error:"+e, data:arryEmpty});
+        }
+
+    });
+ 
  
 }
