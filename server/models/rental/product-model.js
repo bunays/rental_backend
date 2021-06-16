@@ -68,6 +68,11 @@ module.exports = {
                     pkIntProductId:ObjectID(),
                     ProductName: upperCase(obj.ProductName),
                     ProductId : obj.ProductId,
+
+                    // itemname : obj.itemname,
+                    // itemvalue : obj.itemvalue,
+                    // Qua : obj.itemname,
+
                     fkIntCategoryId: ObjectID(obj.IntCategoryId),
                     fkIntsubCategoryId: ObjectID(obj.IntsubCategoryId),
                     status: obj.status,

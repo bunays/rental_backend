@@ -80,6 +80,7 @@ module.exports = {
                     Price: obj.Price,
                     CurrencyType: obj.CurrencyType,
                     NoOfproducts: obj.NoOfproducts,
+                    commission: obj.commission,
                     datCreateDateAndTime: new Date(),
                     datLastModifiedDateTime: null,
                     strStatus: 'N',
